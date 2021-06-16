@@ -30,7 +30,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +51,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -70,7 +72,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -90,7 +93,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -110,7 +114,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -130,7 +135,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
@@ -150,7 +156,8 @@ export default memo(function ImgHover(props) {
                                 <img src={test1} alt=""/>
                             </div>
                             <div className="social">
-                                 <a href=""><i class="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-save2"></i></a>
+                                 <a href=""><i className="bi bi-share-fill"></i></a>
                             </div>
                         </div>
                     </div>
