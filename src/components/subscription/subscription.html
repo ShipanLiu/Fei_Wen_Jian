@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>goni</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <style>
+       body{
+           font-family: 'Poppins', sans-serif;
+           background-color: #d8dede;
+background-image: linear-gradient(315deg, #d8dede 0%, #e5bdf6 74%);
+       }
+    .price-one {
+  padding-bottom: 200px;
+  position: relative;
+}
+
+
+.block {
+  padding-top: 70px;
+}
+.title {
+  margin: 0;
+  color: #2a2d3b;
+  font-size: 50px;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
+.text {
+  margin: 0;
+  font-size: 20px;
+  line-height: 34px;
+  color: #868994;
+}
+
+.tab-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 50px;
+}
+.single {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #fbf8f4;
+  color: #2a2d3b;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding: 13.5px 52px;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+}
+.single:first-child {
+  border-top-left-radius: 30.5px;
+  border-bottom-left-radius: 30.5px;
+}
+.single:last-child {
+  border-top-right-radius: 30.5px;
+  border-bottom-right-radius: 30.5px;
+}
+.single:hover, .single.active {
+  background-color: #4caf50;
+  color: #fff;
+    letter-spacing: 1px;
+}
+.content {
+  position: relative;
+}
+.one {
+  width: 100%;
+  max-width: 370px;
+  -webkit-filter: drop-shadow(10px 0px 60px rgba(42, 45, 59, 0.1));
+          filter: drop-shadow(10px 0px 60px rgba(42, 45, 59, 0.1));
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform: scale(0.85) translateX(270px) translateY(-15px);
+          transform: scale(0.85) translateX(270px) translateY(-15px);
+  -webkit-transition: -webkit-transform .4s ease-in-out;
+  transition: -webkit-transform .4s ease-in-out;
+  transition: transform .4s ease-in-out;
+  transition: transform .4s ease-in-out, -webkit-transform .4s ease-in-out;
+}
+.one.active {
+  z-index: 20;
+  -webkit-transform: scale(1) translateX(0) translateY(0);
+          transform: scale(1) translateX(0) translateY(0);
+}
+
+.inner {
+  text-align: center;
+  padding-top: 50px;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 80px;
+  background-color: #fff;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
+}
+.price {
+  font-size: 80px;
+  color: #4caf50;
+  margin-bottom: 15px;
+}
+.currency {
+  font-size: 25px;
+  display: inline-block;
+  vertical-align: super;
+}
+.time {
+  font-size: 14px;
+  color: #2a2d3b;
+  font-weight: 500;
+  text-transform: uppercase;
+  vertical-align: baseline;
+  letter-spacing: .04em;
+  margin-left: 5px;
+}
+.name {
+  margin: 0;
+  font-size: 20px;
+  color: #2a2d3b;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.item {
+  font-size: 18px;
+  color: #868994;
+  line-height: 1em;
+}
+.item + .item {
+  margin-top: 27px;
+}
+.price-one__btn {
+  margin-top: 30px;
+}
+
+.thm-btn {
+  display: inline-block;
+  vertical-align: middle;
+  border: none;
+  outline: none !important;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 13.5px 56px;
+  border-radius: 30.5px;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+    letter-spacing: 1px;
+}
+.thm-btn:hover {
+  color: #fff;
+  background-color: #e7062b;
+}
+
+       a:hover{
+           text-decoration: none;
+       }
+
+       hr{
+           border-top: white !important;
+       }
+    </style>
+
+</head>
+
+<body>
+
+        <br><br><br><br><br><br>
+        <section class="price-one" id="pricing">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+
+                            <h2 class="title">Choose what the best</h2>
+                            <p class="text">Lorem ipsum is simply free text dolor sit amet, consectetuer adipiscing <br> elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna <br> aliquam erat volutpat.
+                            </p>
+                            <div class="tab-btn" id="tab-title">
+                                <a href="#monthly" class="single active">Monthly</a>
+                                <a href="#yearly" class="single">Yearly</a>
+                            </div>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="content">
+                            <div class="one active" id="monthly">
+                                <div class="inner">
+                                    <div class="price">
+                                        <span class="currency">$</span><span class="amount">49</span>
+                                        <span class="time">/Monthly</span>
+                                    </div>
+                                    <hr class="line" />
+                                    <h3 class="name">Small Business</h3>
+                                    <ul class="list">
+                                        <li class="item">10 pages</li>
+                                        <li class="item">500 gb storage</li>
+                                        <li class="item">10 sdd Database</li>
+                                        <li class="item">Free coustom domain</li>
+                                        <li class="item">24/7 free support</li>
+                                    </ul>
+                                    <hr class="line" />
+                                    <a href="#" class="price-one__btn thm-btn">Select Plan</a>
+                                </div>
+                            </div>
+                            <div class="one" id="yearly">
+                                <div class="inner">
+                                    <div class="price">
+                                        <span class="currency">$</span><span class="amount">99</span><span class="time">/Yearly</span>
+                                    </div>
+                                    <hr class="line" />
+                                    <h3 class="name">Professional Business</h3>
+                                    <ul class="list">
+                                        <li class="item">10 pages</li>
+                                        <li class="item">500 gb storage</li>
+                                        <li class="item">10 sdd Database</li>
+                                        <li class="item">Free coustom domain</li>
+                                        <li class="item">24/7 free support</li>
+                                    </ul>
+                                    <hr class="line" />
+                                    <a href="#" class="price-one__btn thm-btn">Select Plan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+        (function($) {
+    "use strict";
+
+    if ($('#tab-title').length) {
+        var pricingTabTitle = $('#tab-title').find('a');
+        var pricebox = $('.content').find('.one');
+        pricingTabTitle.each(function() {
+            var Self = $(this);
+            var tabelID = Self.attr('href');
+            // console.log(tabelID);
+            Self.on('click', function() {
+                pricingTabTitle.removeClass('active');
+                Self.addClass('active');
+                pricebox.removeClass('active');
+                $(tabelID).addClass('active');
+                // console.log($('#'+tabelID));
+                return false;
+            });
+        })
+    }
+
+
+
+})(jQuery);
+
+        </script>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react'
 import './ImgHover.css'
+import FloatingBg from '../floatingBg/FloatingBg'
 import bgPic from '../../assets/img/faq-bg-1-1.png';
 import test1 from '../../assets/img/test1.jpg'
 
@@ -8,8 +9,9 @@ export default memo(function ImgHover(props) {
 
   return (
     <>
+      <FloatingBg></FloatingBg>
       <section className="team-one" id="team">
-         <img src={bgPic} className="bg-shape-1" alt=""/>
+         {/* <img src={bgPic} className="bg-shape-1" alt=""/> */}
          <div className='container'>
             <div className="title text-center">
               <p>Doc Cards</p>
