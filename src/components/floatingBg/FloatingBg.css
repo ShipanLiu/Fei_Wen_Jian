@@ -1,158 +1,171 @@
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        .kuang{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -10;
-            background-image: linear-gradient(160deg,rgb(119,149,248),rgb(85,90,191));
+.kuang {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    160deg,
+    rgb(119, 149, 248),
+    rgb(85, 90, 191)
+  );
+}
+.bubble {
+  position: absolute;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: inset 0 0 8px #fff;
+  opacity: 0;
+  animation: flutter 0s infinite;
+}
+@keyframes flutter {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
 
-        }
-        .bubble{
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: inset 0 0 8px  #fff;
-            animation: flutter 10s infinite;
-            opacity: 0;
-        }
-        @keyframes flutter {
-            0%{
-                transform: translateX(0);
-                bottom: -100px;
-                opacity: .8;
-            }
+  25% {
+    transform: translateX(20);
+    opacity: 0.5;
+  }
 
-            50%{
-                transform: translateX(100px);
-                opacity: .4;
-            }
+  50% {
+    transform: translateX(40px);
+    opacity: 0.8;
+  }
 
-            100%{
-                transform: translateX(0px);
-                bottom: 100%;
-                opacity: 0;
+  50% {
+    transform: translateX(20px);
+    opacity: 0.4;
+  }
 
-            }
-        }
-      .bubble:nth-child(1){
-            left: -10%;
-            width: 50px;
-            height: 50px;
-            animation-duration: 20s;
-        }
-        .bubble:nth-child(2){
-            left: 15%;
-            width: 20px;
-            height: 20px;
-            animation-duration: 25s;
-            animation-delay: .9s;
-
-        }
-        .bubble:nth-child(3){
-            left: 20%;
-            width: 60px;
-            height: 60px;
-            animation-duration: 21s;
-            box-shadow: inset 0 0 6px  #fff;
-
-        }
-        .bubble:nth-child(4){
-            left: 30%;
-            width: 30px;
-            height: 30px;
-            animation-duration: 24s;
-            animation-delay: .6s;
-
-        }
-        .bubble:nth-child(5){
-            left: 40%x;
-            width: 50px;
-            height: 50px;
-            animation-duration: 28s;
-
-
-
-        }
-        .bubble:nth-child(6){
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            animation-duration: 26s;
-            animation-delay: 1s;
-            animation-delay: 1s;
-
-        }
-        .bubble:nth-child(7){
-            left: 60%;
-            width: 40px;
-            height: 40px;
-            animation-duration: 15s;
-            animation-delay: .3s;
-            box-shadow: inset 0 0 4px  #fff;
-
-        }
-        .bubble:nth-child(8){
-            left: 50%;
-            width: 100px;
-            height: 100px;
-            animation-duration: 20s;
-            animation-delay: 1s;
-
-        }
-        .bubble:nth-child(9){
-            left: 80%;
-            width: 100px;
-            height: 100px;
-            animation-duration: 19s;
-            box-shadow: inset 0 0 5px  #fff;
-
-        }
-        .bubble:nth-child(10){
-            left: 120%;
-            width: 90px;
-            height: 90px;
-            animation-duration: 20s;
-            box-shadow: inset 0 0 14px  #fff;
-        }
-        .bubble:nth-child(11){
-            left: 90%;
-            width: 50px;
-            height: 50px;
-            animation-duration: 17s;
-        }
-        .bubble:nth-child(12){
-            left: 20%;
-            width: 110px;
-            height: 110px;
-            animation-duration: 19s;
-            animation-delay: .5s;
-            box-shadow: inset 0 0 11px  #fff;
-        }
-        .bubble:nth-child(13){
-            left: 55%;
-            width: 110px;
-            height: 110px;
-            animation-duration: 15s;
-            box-shadow: inset 0 0 13px  #fff;
-        }
-        .bubble:nth-child(14){
-            left: 35%;
-            width: 90px;
-            height: 90px;
-            animation-duration: 19s;
-            animation-delay: .8s;
-            box-shadow: inset 0 0 15px  #fff;
-        }
-        .bubble:nth-child(15){
-            left: -20%;
-            width: 160px;
-            height: 160px;
-            animation-duration: 18s;
-        }
+  100% {
+    transform: translateX(0px);
+    opacity: 0;
+  }
+}
+.bubble:nth-child(1) {
+  top: 15%;
+  left: 5%;
+  width: 150px;
+  height: 150px;
+  animation-duration: 20s;
+}
+.bubble:nth-child(2) {
+  top: 50%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  animation-duration: 25s;
+  animation-delay: 0.9s;
+}
+.bubble:nth-child(3) {
+  top: 5%;
+  left: 20%;
+  width: 100px;
+  height: 100px;
+  box-shadow: inset 0 0 6px #fff;
+  animation-duration: 21s;
+}
+.bubble:nth-child(4) {
+  top: 55%;
+  left: 40%;
+  width: 200px;
+  height: 200px;
+  animation-duration: 24s;
+  animation-delay: 0.6s;
+}
+.bubble:nth-child(5) {
+  top: 90%;
+  left: 0%;
+  width: 50px;
+  height: 50px;
+  animation-duration: 28s;
+}
+.bubble:nth-child(6) {
+  top: 40%;
+  left: 46%;
+  width: 70px;
+  height: 70px;
+  animation-duration: 209s;
+  animation-delay: 1s;
+  animation-delay: 1s;
+}
+.bubble:nth-child(7) {
+  top: 20%;
+  left: 50%;
+  width: 210px;
+  height: 210px;
+  box-shadow: inset 0 0 4px #fff;
+  animation-duration: 15s;
+  animation-delay: 0.3s;
+}
+.bubble:nth-child(8) {
+  top: 39%;
+  left: 77%;
+  width: 150px;
+  height: 150px;
+  animation-duration: 20s;
+  animation-delay: 1s;
+}
+.bubble:nth-child(9) {
+  bottom: 5%;
+  left: 80%;
+  width: 220px;
+  height: 220px;
+  box-shadow: inset 0 0 5px #fff;
+  animation-duration: 19s;
+}
+.bubble:nth-child(10) {
+  top: 5%;
+  left: 97%;
+  width: 200px;
+  height: 200px;
+  box-shadow: inset 0 0 14px #fff;
+  animation-duration: 20s;
+}
+.bubble:nth-child(11) {
+  bottom: 10%;
+  left: 90%;
+  width: 400px;
+  height: 400px;
+  animation-duration: 17s;
+}
+.bubble:nth-child(12) {
+  top: 30%;
+  left: 20%;
+  width: 50px;
+  height: 50px;
+  box-shadow: inset 0 0 11px #fff;
+  animation-duration: 19s;
+  animation-delay: 0.5s;
+}
+.bubble:nth-child(13) {
+  left: 55%;
+  width: 110px;
+  height: 110px;
+  box-shadow: inset 0 0 13px #fff;
+  animation-duration: 15s;
+}
+.bubble:nth-child(14) {
+  top: 30%;
+  left: 38%;
+  width: 100px;
+  height: 100px;
+  box-shadow: inset 0 0 15px #fff;
+  animation-duration: 19s;
+  animation-delay: 0.8s;
+}
+.bubble:nth-child(15) {
+  left: -20%;
+  width: 160px;
+  height: 160px;
+  animation-duration: 18s;
+}
