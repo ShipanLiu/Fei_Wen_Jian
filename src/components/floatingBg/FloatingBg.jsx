@@ -15,6 +15,11 @@ export default memo(function FloatingBg() {
         <div className="bubble"></div>
         <div className="bubble"></div>
         <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
       </div>
     </div>
   )
