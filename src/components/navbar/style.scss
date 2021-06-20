@@ -1,0 +1,23 @@
+@keyframes scrolled {
+  0% {
+    top: -70px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+.navbar {
+  &.scrolled {
+    @media (min-width: 768px) {
+      position: fixed;
+      right: 0;
+      left: 0;
+      background-color: #1d8cf8;
+      animation: scrolled 0.3s ease forwards;
+    }
+  }
+}
+
+#header-navbar {
+}

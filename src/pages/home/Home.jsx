@@ -1,11 +1,20 @@
 import React, { memo } from 'react'
-// import NavBar from '../../components/navbar/NavBar'
-
+import Header from '../../components/header/index'
+import Welcome from '../../components/sections/Welcome/index'
+import Footer from '../../components/footer/index'
 
 export default memo(function Home() {
   return (
     <div>
-      {/* <NavBar></NavBar> */}
+      <Header></Header>
+      <main>
+        <Welcome></Welcome>
+      </main>
+      <Footer></Footer>
+      <Footer></Footer>
+      <Footer></Footer>
+      <Footer></Footer>
+      <Footer></Footer>
     </div>
   )
 })
