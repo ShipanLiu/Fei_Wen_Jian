@@ -1,10 +1,10 @@
 #home {
   height: calc(100vh - 300px);
   position: relative;
-  margin-top: 56px;
+  margin-top: 20px;
 
   @media (min-width: 768px) {
-    margin-top: 115px;
+    margin-top: 20px;
   }
   > div {
     height: 100%;
