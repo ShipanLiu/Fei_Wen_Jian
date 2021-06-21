@@ -6,7 +6,7 @@ export default memo(function index() {
     <div>
       <div className=" purchase text-center">
         <h1 className="text-white">Purchase Whatever You Want</h1>
-        <p className="text-white">
+        <p className="text-white mb-5">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit.
         </p>
         <div className="cards m-3">

@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 import './style.scss'
 
 const Nav = () => {
   const [navClass, setNavClass] = useState('')
+  const history = useHistory()
+  console.log(history)
+
   useEffect(() => {
     window.addEventListener('scroll', () => {
       let navClass = ''
@@ -13,13 +17,21 @@ const Nav = () => {
     })
   }, [])
 
+  const toHome = useCallback(() => {
+    history.push('/home')
+  })
+
+  const toDocs = useCallback(() => {
+    history.push('/docs')
+  })
+
   return (
     <nav id="header-navbar">
       <div className="container">
         <div className="row">
           <div className="col shadow-sm">
             <nav className={`navbar p-1 navbar-expand-lg ${navClass}`}>
-              <a className="navbar-brand navbar-toggler border-0" href="#">
+              <a className="navbar-brand navbar-toggler border-0">
                 {/* <img src="images/logo.png" className="img-fluid" style="max-width:90px" alt=""/> */}
                 <h1 className="text-light">FlyDocs</h1>
               </a>
@@ -40,23 +52,19 @@ const Nav = () => {
                 id="navbarSupportedContent"
               >
                 <div className="lg-brand d-none d-lg-inline-block">
-                  <a className="navbar-brand border-0 " href="#">
+                  <span className="navbar-brand border-0 " onClick={toHome}>
                     <h3 className="text-light">FlyDocs</h3>
-                  </a>
+                  </span>
                 </div>
                 <ul
                   className="navbar-nav mr-auto"
                   style={{ paddingLeft: '3rem' }}
                 >
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      HOME
-                    </a>
+                  <li className="nav-item" onClick={toHome}>
+                    <div className="nav-link">HOME</div>
                   </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      DOCS
-                    </a>
+                  <li className="nav-item" onClick={toDocs}>
+                    <span className="nav-link">DOCS</span>
                   </li>
                   <li className="nav-item dropdown">
                     <a
