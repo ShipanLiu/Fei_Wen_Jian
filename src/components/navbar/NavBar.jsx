@@ -5,7 +5,6 @@ import './style.scss'
 const Nav = () => {
   const [navClass, setNavClass] = useState('')
   const history = useHistory()
-  console.log(history)
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -32,7 +31,6 @@ const Nav = () => {
           <div className="col shadow-sm">
             <nav className={`navbar p-1 navbar-expand-lg ${navClass}`}>
               <a className="navbar-brand navbar-toggler border-0">
-                {/* <img src="images/logo.png" className="img-fluid" style="max-width:90px" alt=""/> */}
                 <h1 className="text-light">FlyDocs</h1>
               </a>
               <button
@@ -48,7 +46,7 @@ const Nav = () => {
               </button>
 
               <div
-                className="collapse navbar-collapse"
+                className="collapse navbar-collapse d-flex justify-content-between"
                 id="navbarSupportedContent"
               >
                 <div className="lg-brand d-none d-lg-inline-block">
@@ -56,10 +54,7 @@ const Nav = () => {
                     <h3 className="text-light">FlyDocs</h3>
                   </span>
                 </div>
-                <ul
-                  className="navbar-nav mr-auto"
-                  style={{ paddingLeft: '3rem' }}
-                >
+                <ul className="navbar-nav mr-auto">
                   <li className="nav-item" onClick={toHome}>
                     <div className="nav-link">HOME</div>
                   </li>

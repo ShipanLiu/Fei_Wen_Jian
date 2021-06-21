@@ -10,7 +10,6 @@ export default memo(function Home() {
         <Welcome></Welcome>
         <Purchase></Purchase>
       </main>
-      <Footer></Footer>
     </div>
   )
 })

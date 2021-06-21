@@ -1,20 +1,27 @@
-import React, { memo, useRef, useEffect, useCallback } from 'react'
+import React, { memo, useEffect, useCallback } from 'react'
 import './style.scss'
 
 export default memo(function Modal(props) {
-  const modalRef = useRef()
   const { showModal, setShowModal } = props
 
-  const closeModal = (e) => {
-    // if (modalRef.current === e.target) {
-    //   setShowModal(false)
-    // }
-    console.log(e.target)
-  }
+  const keyPress = useCallback(
+    (e) => {
+      console.log(e.keyCode)
+      if (e.keyCode === 27 && showModal) {
+        setShowModal(false)
+        console.log('I pressed')
+      }
+    },
+    [setShowModal, showModal]
+  )
 
+  // rerender after the key press
+  useEffect(() => {
+    document.addEventListener('keydown', keyPress)
+  }, [keyPress])
   return (
-    <div className="the-background" onClick={closeModal} ref={modalRef}>
-      <div className="modal-wrapper" showModal={showModal}>
+    <div className="the-background">
+      <div className="modal-wrapper">
         <img
           className="modal-img"
           src={require('../../assets/img/test1.jpg').default}
