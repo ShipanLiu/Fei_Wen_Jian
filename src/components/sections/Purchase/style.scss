@@ -1,18 +1,19 @@
-:root {
-  --Sniglet-font: 'Sniglet', cursive;
-  --Rubik: 'Rubik', cursive;
-  --Patua: 'Patua One', cursive;
-  --Lobster: 'lobster', cursive;
-  --light-black: #2e2c2caf;
-  --bggradient: linear-gradient(to bottom, #dd2476, #ff512f);
-  --light-gray: rgba(255, 255, 255, 0.877);
-}
-
 .purchase {
   .card {
     transition: all 500ms ease;
     &:hover {
       transform: scale(1.03);
+    }
+    .card-body {
+      .title {
+        margin-top: 0;
+        background: rgba(140, 241, 241, 0.199);
+      }
+      .pricing {
+        background: rgba(140, 241, 241, 0.199);
+        border-top-left-radius: 55%;
+        border-top-right-radius: 55%;
+      }
     }
 
     .btn {

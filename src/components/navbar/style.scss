@@ -30,6 +30,7 @@
 #header-navbar {
   z-index: 10;
   .nav-item {
+    cursor: pointer;
     .nav-link {
       color: #fff;
     }
