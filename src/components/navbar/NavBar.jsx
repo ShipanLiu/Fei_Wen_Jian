@@ -30,7 +30,7 @@ const Nav = () => {
         <div className="row">
           <div className="col shadow-sm">
             <nav className={`navbar p-1 navbar-expand-lg ${navClass}`}>
-              <a className="navbar-brand navbar-toggler border-0">
+              <a className="navbar-brand navbar-toggler border-0" href="">
                 <h1 className="text-light">FlyDocs</h1>
               </a>
               <button
@@ -77,14 +77,14 @@ const Nav = () => {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdown"
                     >
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="">
                         Action
                       </a>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="">
                         Another action
                       </a>
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="">
                         Something else here
                       </a>
                     </div>
@@ -105,14 +105,14 @@ const Nav = () => {
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdown"
                     >
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="">
                         Action
                       </a>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="">
                         Another action
                       </a>
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="">
                         Something else here
                       </a>
                     </div>

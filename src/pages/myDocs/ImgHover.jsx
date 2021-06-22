@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback, useEffect } from 'react'
+import React, { memo, useState, useCallback } from 'react'
 import './ImgHover.css'
 import FloatingBg from '../../components/floatingBg/FloatingBg'
 // import test1 from '../../assets/img/test1.jpg'
@@ -22,11 +22,7 @@ export default memo(function ImgHover(props) {
     <>
       <FloatingBg></FloatingBg>
       <section className="team-one" id="team">
-        {/* <img src={bgPic} className="bg-shape-1" alt=""/> */}
         <div className="container">
-          {/* <div className="title text-center">
-            <p>Doc Cards</p>
-          </div> */}
           <div className="row">
             {imgArr.map((item) => {
               return (
@@ -36,12 +32,12 @@ export default memo(function ImgHover(props) {
                     onClick={() => openModal(item)}
                   >
                     <div className="detail">
-                      <a href="" className="text-muted ml-1 mr-3 mt-1">
-                        <span>Details</span>
-                      </a>
-                      <a href="" className="text-muted mt-1">
-                        <span>Tag</span>
-                      </a>
+                      <div href="" className="mx-3">
+                        <span className="text-light">Contract</span>
+                      </div>
+                      <div href="" className="">
+                        <span className="text-white">09.04.2020</span>
+                      </div>
                     </div>
                     <div className="inner">
                       <div className="image">
@@ -53,10 +49,10 @@ export default memo(function ImgHover(props) {
                         />
                       </div>
                       <div className="social">
-                        <a href="">
+                        <a href="" className="bg-info mx-3">
                           <i className="bi bi-save2"></i>
                         </a>
-                        <a href="">
+                        <a href="" className="bg-warning mx-3">
                           <i className="bi bi-share-fill"></i>
                         </a>
                       </div>
@@ -65,56 +61,6 @@ export default memo(function ImgHover(props) {
                 </div>
               )
             })}
-            {/* <div className="col-lg-3 col-md-6 col-sm-12">
-              <div className="single shadow" onClick={openModal}>
-                <div className="detail">
-                  <a href="" className="text-muted ml-1 mr-3 mt-1">
-                    <span>Details</span>
-                  </a>
-                  <a href="" className="text-muted mt-1">
-                    <span>Tag</span>
-                  </a>
-                </div>
-                <div className="inner">
-                  <div className="image">
-                    <img src={test1} alt="" />
-                  </div>
-                  <div className="social">
-                    <a href="">
-                      <i className="bi bi-save2"></i>
-                    </a>
-                    <a href="">
-                      <i className="bi bi-share-fill"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-            {/* <div className="col-lg-3 col-md-6 col-sm-12">
-              <div className="single shadow" onClick={openModal}>
-                <div className="detail">
-                  <a href="" className="text-muted ml-1 mr-3 mt-1">
-                    <span>Details</span>
-                  </a>
-                  <a href="" className="text-muted mt-1">
-                    <span>Tag</span>
-                  </a>
-                </div>
-                <div className="inner">
-                  <div className="image">
-                    <img src={test2} alt="" />
-                  </div>
-                  <div className="social">
-                    <a href="">
-                      <i className="bi bi-save2"></i>
-                    </a>
-                    <a href="">
-                      <i className="bi bi-share-fill"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </section>

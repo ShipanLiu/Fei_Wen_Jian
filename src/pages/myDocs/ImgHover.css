@@ -41,6 +41,7 @@ body {
 }
 
 .inner {
+  position: relative;
   transform: scaleY(1);
   transform-origin: top;
   transition: transform 500ms ease;
@@ -108,25 +109,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   text-decoration: none;
   visibility: hidden;
   opacity: 0;
   transition: all 500ms ease;
 }
 
-.detail > a {
+.detail div {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
+  /* width: 80px; */
   height: 40px;
   text-align: center;
   text-decoration: none;
-  background-color: white;
+  background-color: #1d8cf8;
   border-radius: 4px;
   opacity: 0.8;
   transition: all 500ms ease;
+}
+
+.social {
+  position: absolute;
+  bottom: 10px;
+  /* background-color: pink; */
 }
 
 .single:hover .social {
@@ -141,7 +147,6 @@ body {
 }
 
 .social > a i {
-  color: #737789;
   font-size: 16px;
   transition: all 500ms ease;
 }
@@ -153,5 +158,5 @@ body {
 
 .social > a:hover i,
 .detail > a:hover span {
-  color: #fd632f;
+  color: #fff;
 }
