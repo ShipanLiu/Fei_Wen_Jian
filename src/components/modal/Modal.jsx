@@ -2,14 +2,13 @@ import React, { memo, useEffect, useCallback } from 'react'
 import './style.scss'
 
 export default memo(function Modal(props) {
-  const { showModal, setShowModal } = props
+  const { showModal, setShowModal, choosedPic } = props
+  console.log(choosedPic)
 
   const keyPress = useCallback(
     (e) => {
-      console.log(e.keyCode)
       if (e.keyCode === 27 && showModal) {
         setShowModal(false)
-        console.log('I pressed')
       }
     },
     [setShowModal, showModal]
@@ -24,7 +23,7 @@ export default memo(function Modal(props) {
       <div className="modal-wrapper">
         <img
           className="modal-img"
-          src={require('../../assets/img/test1.jpg').default}
+          src={require(`../../assets/img/test${choosedPic}.jpg`).default}
           alt="camera"
         />
         <div className="modal-content">

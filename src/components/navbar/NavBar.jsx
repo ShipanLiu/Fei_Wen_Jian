@@ -46,7 +46,7 @@ const Nav = () => {
               </button>
 
               <div
-                className="collapse navbar-collapse d-flex justify-content-between"
+                className="collapse navbar-collapse justify-content-between"
                 id="navbarSupportedContent"
               >
                 <div className="lg-brand d-none d-lg-inline-block">

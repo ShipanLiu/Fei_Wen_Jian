@@ -94,7 +94,7 @@ const footer = () => {
         </div>
       </div>
       <div className="bottom-footer pt-3 pb-3 text-center">
-        <small>© All Right Reserved. Design By Mohamed Azouaoui</small>
+        <small>© All Right Reserved. Design By FlyDocs</small>
       </div>
     </footer>
   )
