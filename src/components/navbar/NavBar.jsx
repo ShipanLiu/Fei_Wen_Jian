@@ -28,7 +28,7 @@ const Nav = () => {
     <nav id="header-navbar">
       <div className="container">
         <div className="row">
-          <div className="col shadow-sm">
+          <div className="col">
             <nav className={`navbar p-1 navbar-expand-lg ${navClass}`}>
               <a className="navbar-brand navbar-toggler border-0" href="">
                 <h1 className="text-light">FlyDocs</h1>
