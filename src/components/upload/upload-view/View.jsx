@@ -61,29 +61,31 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
             <h1>upload your file here</h1>
           </div>
           <hr />
-          <div className="upload-part row">
-            {addedImg?.map((imgObj) => {
+          <div className="upload-part">
+            {/* {addedImg?.map((imgObj) => {
               return (
-                <div
-                  className="showed-img row-item col-3 mx-2 border-0"
-                  key={imgObj.id}
-                  // onClick={() => setImage(null)}
-                >
-                  <i
-                    className="delete-icon bi bi-x bg-danger"
-                    onClick={() => handleDelete(imgObj.id)}
-                  ></i>
-                  <img
-                    src={imgObj.src}
-                    alt="photo parse wrong"
-                    className="img-fluid"
-                  />
+                <div className="item">
+                  <div
+                    className="showed-img mx-2"
+                    key={imgObj.id}
+                    // onClick={() => setImage(null)}
+                  >
+                    <i
+                      className="delete-icon bi bi-x bg-danger"
+                      onClick={() => handleDelete(imgObj.id)}
+                    ></i>
+                    <img
+                      src={imgObj.src}
+                      alt="photo parse wrong"
+                      className="img-fluid"
+                    />
+                  </div>
                 </div>
               )
-            })}
+            })} */}
 
             <button
-              className="btn btn-info row-item col-3 mx-2 border-0 mb-2"
+              className="btn btn-info add-button  mx-2 border-0"
               onClick={(e) => {
                 handleClick(e)
               }}
@@ -111,9 +113,40 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
               ></UploadModal>
             )}
           </div>
-          <hr />
-          <div>
-            <h2 className="px-2">Mascha!!!!!!!!!!!!!!!!</h2>
+
+          <hr className="my-2" />
+
+          <div className="wrapper">
+            {addedImg?.map((imgObj) => {
+              return (
+                <div className="item">
+                  <div
+                    className="showed-img mx-2"
+                    key={imgObj.id}
+                    // onClick={() => setImage(null)}
+                  >
+                    <i
+                      className="delete-icon bi bi-x bg-danger"
+                      onClick={() => handleDelete(imgObj.id)}
+                    ></i>
+                    <img
+                      src={imgObj.src}
+                      alt="photo parse wrong"
+                      className="img-fluid"
+                    />
+                  </div>
+                </div>
+              )
+            })}
+            {/* <div class="item">box-1</div>
+            <div class="item">box-2</div>
+            <div class="item">box-3</div>
+            <div class="item">box-4</div>
+            <div class="item">box-5</div>
+            <div class="item">box-6</div>
+            <div class="item">box-7</div>
+            <div class="item">box-8</div>
+            <div class="item">box-9</div> */}
           </div>
         </div>
       </div>
