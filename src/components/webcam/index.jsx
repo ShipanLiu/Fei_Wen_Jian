@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react'
+import { nanoid } from 'nanoid'
+import { Button } from 'reactstrap'
 import './style.scss'
 import Webcam from 'react-webcam'
 
@@ -8,47 +10,49 @@ const videoConstraints = {
   facingMode: 'user',
 }
 
-const WebcamCapture = (props) => {
+const WebcamCapture = ({ setShowWebCam, setAddedImg }) => {
   const webcamRef = React.useRef(null)
-  const [camImage, setCamImage] = useState('')
-  const { setShowWebCam } = props
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot()
-    setCamImage(imageSrc)
+    // setCamImage(imageSrc)
+    const imgObj = { id: nanoid(), src: imageSrc }
+    setAddedImg((preImgArr) => [...preImgArr, imgObj])
   }, [webcamRef])
 
   return (
     <div className="webcam-container">
       <div className="webcam-img">
-        {camImage == '' ? (
-          <Webcam
-            audio={false}
-            height={200}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            width={220}
-            videoConstraints={videoConstraints}
-          />
-        ) : (
-          <img src={camImage} />
-        )}
+        <Webcam
+          audio={false}
+          height={600}
+          ref={webcamRef}
+          screenshotFormat="image/*"
+          width={600}
+          videoConstraints={videoConstraints}
+        />
       </div>
-      <button
-        onClick={(e) => {
-          e.preventDefault()
-          capture()
-        }}
-        className="btn btn-success"
-      >
-        Capture
-      </button>
-      <button
-        onClick={() => setShowWebCam(false)}
-        className="btn btn-dark mx-2"
-      >
-        close
-      </button>
+      <div className="d-flex justify-content-center align-items-center">
+        <Button
+          onClick={(e) => {
+            e.preventDefault()
+            capture()
+          }}
+          color="success"
+          size="lg"
+          className="mx-3"
+        >
+          Capture
+        </Button>
+        <Button
+          onClick={() => setShowWebCam(false)}
+          color="warning"
+          size="lg"
+          className="mx-3"
+        >
+          Close
+        </Button>
+      </div>
     </div>
   )
 }

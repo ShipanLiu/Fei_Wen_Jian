@@ -35,9 +35,6 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
     }
   }
 
-  console.log(addedImg)
-
-  // 删除数组中的一个元素： 更新state， 需要上传的文件里面假如一个特有的id。
   const handleDelete = (id) => {
     console.log('delete')
     console.log('deleted id is:' + id)
@@ -48,10 +45,20 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
   return (
     <div className="container mb-3">
       <div className="upload-wrapper">
+        {showWebCam ? (
+          <div className="webcam-area">
+            <WebCam
+              className="webcam-body"
+              setShowWebCam={setShowWebCam}
+              setAddedImg={setAddedImg}
+            ></WebCam>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="main-area w-100">
           <div className="title-part">
             <h1>upload your file here</h1>
-            {showWebCam ? <WebCam setShowWebCam={setShowWebCam}></WebCam> : ''}
           </div>
           <hr />
           <div className="upload-part row">
