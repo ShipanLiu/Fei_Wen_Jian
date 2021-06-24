@@ -75,23 +75,23 @@ const footer = () => {
               <p className="text-muted">
                 <small>E-mail : contact@email.com</small>
               </p>
-              <div className="social-media mt-4">
-                <a href="!#" className="text-light">
-                  <i className="fab fa-facebook-f mr-4" />
-                </a>
-                <a href="!#" className="text-light">
-                  <i className="fab fa-twitter mr-4" />
-                </a>
-                <a href="!#" className="text-light">
-                  <i className="fab fa-instagram mr-4" />
-                </a>
-                <a href="!#" className="text-light">
-                  <i className="fab fa-github" />
-                </a>
-              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className="social-media mt-4">
+        <a href="!#" className="text-light">
+          <i className="fab fa-facebook-f mr-4" />
+        </a>
+        <a href="!#" className="text-light">
+          <i className="fab fa-twitter mr-4" />
+        </a>
+        <a href="!#" className="text-light">
+          <i className="fab fa-instagram mr-4" />
+        </a>
+        <a href="!#" className="text-light">
+          <i className="fab fa-github" />
+        </a>
       </div>
       <div className="bottom-footer pt-3 pb-3 text-center">
         <small>© All Right Reserved. Design By FlyDocs</small>
