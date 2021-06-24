@@ -139,6 +139,14 @@ export default memo(function Upload() {
               >
                 Webcam
               </Button>
+              <Button
+                color="danger"
+                onClick={() => {
+                  setShowModal(false)
+                }}
+              >
+                Cancle
+              </Button>
             </ModalFooter>
           </Modal>
         </div>

@@ -1,7 +1,13 @@
 import React, { memo } from 'react'
+import PurchaseCard from '../purchase-card/PurchaseCard'
 import './style.scss'
 
 export default memo(function index() {
+  const priceCard = [
+    { id: 1, duration: 'One Month', price: '$10' },
+    { id: 2, duration: 'three Month', price: '$28' },
+    { id: 3, duration: 'One Year', price: '$110' },
+  ]
   return (
     <div>
       <div className=" purchase text-center">
@@ -11,57 +17,15 @@ export default memo(function index() {
         </p>
         <div className="cards m-3">
           <div className="d-flex flex-row justify-content-center flex-wrap">
-            <div className="card m-3">
-              <div className="card-body m-0 p-0">
-                <div className="title py-3 mb-2">
-                  <h5 className="card-title">FlyDocs</h5>
-                </div>
-                <p className="card-text pt-2">One Month</p>
-                <div className="pricing">
-                  <h1 className="my-5">$10</h1>
-                  <a
-                    href="#"
-                    className="btn btn-dark px-5 py-2 primary-btn mb-3"
-                  >
-                    Purchase Now
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card m-3">
-              <div className="card-body m-0 p-0">
-                <div className="title py-3 mb-2">
-                  <h5 className="card-title">FlyDocs</h5>
-                </div>
-                <p className="card-text pt-2">Three Month</p>
-                <div className="pricing">
-                  <h1 className="my-5">$28</h1>
-                  <a
-                    href="#"
-                    className="btn btn-dark px-5 py-2 primary-btn mb-3"
-                  >
-                    Purchase Now
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="card m-3">
-              <div className="card-body m-0 p-0">
-                <div className="title py-3 mb-2">
-                  <h5 className="card-title">FlyDocs</h5>
-                </div>
-                <p className="card-text pt-2">One Year</p>
-                <div className="pricing">
-                  <h1 className="my-5">$110</h1>
-                  <a
-                    href="#"
-                    className="btn btn-dark px-5 py-2 primary-btn mb-3"
-                  >
-                    Purchase Now
-                  </a>
-                </div>
-              </div>
-            </div>
+            {priceCard.map((item) => {
+              return (
+                <PurchaseCard
+                  key={item.id}
+                  duration={item.duration}
+                  price={item.price}
+                ></PurchaseCard>
+              )
+            })}
           </div>
         </div>
       </div>
