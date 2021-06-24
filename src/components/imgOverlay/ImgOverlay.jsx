@@ -3,8 +3,8 @@ import React, { useCallback } from 'react'
 export default function ImgOverlay({ id, time, openModal }) {
   console.log(id)
   return (
-    <div>
-      <div className="col-lg-4 col-md-6 col-sm-12" key={id}>
+    <div className="col-12 col-md-4 col-lg-3">
+      <div key={id}>
         <div className="single shadow" onClick={() => openModal(id)}>
           <div className="detail">
             <div href="" className="mx-3">
