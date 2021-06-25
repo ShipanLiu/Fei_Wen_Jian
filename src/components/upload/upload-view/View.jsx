@@ -18,21 +18,30 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
 
   const handleOnChange = (e) => {
     if (e.target.files) {
-      console.log('success')
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      reader.onload = function (e) {
-        const img = new Image()
-        img.src = reader.result
-        // setImage(img.src)
-        const imgObj = { id: nanoid(), src: img.src }
-        setAddedImg((preImgArr) => [...preImgArr, imgObj])
-      }
-      reader.readAsDataURL(file)
-    } else {
-      setImage(null)
-      console.log('e.target.files failure')
+      const fileArray = Array.from(e.target.files).map((file) => ({
+        src: URL.createObjectURL(file),
+        id: nanoid(),
+      }))
+      console.log(fileArray)
+      setAddedImg((prevImages) => prevImages.concat(fileArray))
+      Array.from(e.target.files).map((file) => URL.revokeObjectURL(file))
     }
+    // if (e.target.files) {
+    //   console.log('success')
+    //   const file = e.target.files[0]
+    //   const reader = new FileReader()
+    //   reader.onload = function (e) {
+    //     const img = new Image()
+    //     img.src = reader.result
+    //     // setImage(img.src)
+    //     const imgObj = { id: nanoid(), src: img.src }
+    //     setAddedImg((preImgArr) => [...preImgArr, imgObj])
+    //   }
+    //   reader.readAsDataURL(file)
+    // } else {
+    //   setImage(null)
+    //   console.log('e.target.files failure')
+    // }
   }
 
   const handleDelete = (id) => {
@@ -62,28 +71,6 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
           </div>
           <hr />
           <div className="upload-part">
-            {/* {addedImg?.map((imgObj) => {
-              return (
-                <div className="item">
-                  <div
-                    className="showed-img mx-2"
-                    key={imgObj.id}
-                    // onClick={() => setImage(null)}
-                  >
-                    <i
-                      className="delete-icon bi bi-x bg-danger"
-                      onClick={() => handleDelete(imgObj.id)}
-                    ></i>
-                    <img
-                      src={imgObj.src}
-                      alt="photo parse wrong"
-                      className="img-fluid"
-                    />
-                  </div>
-                </div>
-              )
-            })} */}
-
             <button
               className="btn btn-info add-button  mx-2 border-0"
               onClick={(e) => {
@@ -139,15 +126,6 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
                 </div>
               )
             })}
-            {/* <div class="item">box-1</div>
-            <div class="item">box-2</div>
-            <div class="item">box-3</div>
-            <div class="item">box-4</div>
-            <div class="item">box-5</div>
-            <div class="item">box-6</div>
-            <div class="item">box-7</div>
-            <div class="item">box-8</div>
-            <div class="item">box-9</div> */}
           </div>
         </div>
       </div>

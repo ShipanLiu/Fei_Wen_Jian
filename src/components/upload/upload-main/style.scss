@@ -34,7 +34,6 @@
     }
     .wrapper {
       max-height: 120px;
-      border: 1px solid #ddd;
       display: flex;
       overflow-x: auto;
       scrollbar-width: none;
@@ -47,7 +46,6 @@
         height: 11vh;
         // line-height: 110px;
         text-align: center;
-        background-color: #ddd;
         margin-right: 2px;
          &:hover {
               border: 2px solid #0DCAF0;
