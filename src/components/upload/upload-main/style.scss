@@ -24,7 +24,7 @@
   .main-area {
     overflow: hidden;
     z-index: 10;
-    height: 400px;
+     height: 300px;
     color: #000;
     background: #fff;
     border-radius: 10px;
@@ -37,25 +37,27 @@
       border: 1px solid #ddd;
       display: flex;
       overflow-x: auto;
+      scrollbar-width: none;
       &::-webkit-scrollbar{
-      width: 0;
+        display: none;
     }
       .item {
         position: relative;
-          min-width: 110px;
-          height: 110px;
-          line-height: 110px;
-          text-align: center;
-          background-color: #ddd;
-          margin-right: 2px;
+        min-width: 11vh;
+        height: 11vh;
+        // line-height: 110px;
+        text-align: center;
+        background-color: #ddd;
+        margin-right: 2px;
+         &:hover {
+              border: 2px solid #0DCAF0;
+              transition: all .5s ease;
+            }
 
           .showed-img {
             height: 100%;
 
-            &:hover {
-              border: 2px solid #0DCAF0;
-              transition: all .5s ease;
-            }
+
 
 
             img {
@@ -86,9 +88,6 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      &::-webkit-scrollbar {
-        // width: 0;
-      }
 
       .add-button{
         border: 1px solid #ccc;

@@ -95,6 +95,7 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
 
             <input
               type="file"
+              multiple="multiple"
               accept="image/*"
               ref={fileInputRef}
               className="upload-input col-6 col-md-4 col-lg-3 mx-2"
