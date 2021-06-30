@@ -3,7 +3,12 @@ import { isMobile } from 'react-device-detect'
 import { nanoid } from 'nanoid'
 import WebCam from '../../webcam/index'
 import UploadModal from '../upload-modal/UploadModal'
-export default function BrowerView({ setImage, addedImg, setAddedImg }) {
+export default function View({
+  setImage,
+  addedImg,
+  setAddedImg,
+  handleImgModal,
+}) {
   const [showModal, setShowModal] = useState(false)
   const [showWebCam, setShowWebCam] = useState(false)
   const fileInputRef = useRef()
@@ -26,22 +31,6 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
       setAddedImg((prevImages) => prevImages.concat(fileArray))
       Array.from(e.target.files).map((file) => URL.revokeObjectURL(file))
     }
-    // if (e.target.files) {
-    //   console.log('success')
-    //   const file = e.target.files[0]
-    //   const reader = new FileReader()
-    //   reader.onload = function (e) {
-    //     const img = new Image()
-    //     img.src = reader.result
-    //     // setImage(img.src)
-    //     const imgObj = { id: nanoid(), src: img.src }
-    //     setAddedImg((preImgArr) => [...preImgArr, imgObj])
-    //   }
-    //   reader.readAsDataURL(file)
-    // } else {
-    //   setImage(null)
-    //   console.log('e.target.files failure')
-    // }
   }
 
   const handleDelete = (id) => {
@@ -51,9 +40,15 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
     setAddedImg(filteredImgs)
   }
 
+  const handleImg = (src, id) => {
+    handleImgModal(src, id)
+    // console.log(`id: ${id} is click and the correspond modal should be opened`)
+    // setShowImgSig(!showImgSig)
+  }
+
   return (
-    <div className="container mb-3">
-      <div className="upload-wrapper">
+    <d iv className="container mb-3">
+      <div className="upload-wrapper container">
         {showWebCam ? (
           <div className="webcam-area">
             <WebCam
@@ -121,6 +116,7 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
                       src={imgObj.src}
                       alt="photo parse wrong"
                       className="img-fluid"
+                      onClick={() => handleImg(imgObj.src, imgObj.id)}
                     />
                   </div>
                 </div>
@@ -129,6 +125,6 @@ export default function BrowerView({ setImage, addedImg, setAddedImg }) {
           </div>
         </div>
       </div>
-    </div>
+    </d>
   )
 }
