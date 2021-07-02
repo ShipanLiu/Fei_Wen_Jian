@@ -102,10 +102,9 @@ export default function View({
           <div className="wrapper">
             {addedImg?.map((imgObj) => {
               return (
-                <div className="item">
+                <div className="item" key={imgObj.id}>
                   <div
                     className="showed-img mx-2"
-                    key={imgObj.id}
                     // onClick={() => setImage(null)}
                   >
                     <i

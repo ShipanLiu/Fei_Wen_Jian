@@ -11,6 +11,7 @@ export default memo(function Home() {
       <main>
         <Welcome></Welcome>
         <Purchase></Purchase>
+        {/* <ImgSignature></ImgSignature> */}
       </main>
     </div>
   )

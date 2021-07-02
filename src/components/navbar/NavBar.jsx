@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import './style.scss'
 
 const Nav = () => {
   const [navClass, setNavClass] = useState('')
+  const toggleBtn = useRef()
   const history = useHistory()
 
   useEffect(() => {
@@ -34,13 +35,14 @@ const Nav = () => {
                 <h1 className="text-light">FlyDocs</h1>
               </a>
               <button
+                ref={toggleBtn}
                 className="navbar-toggler btn btn-primary"
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
+                // aria-controls="navbarSupportedContent"
+                // aria-expanded="false"
+                // aria-label="Toggle navigation"
               >
                 <i className="fas fa-sliders-h text-light"></i>
               </button>
