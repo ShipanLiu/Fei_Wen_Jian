@@ -3,24 +3,28 @@ import { nanoid } from 'nanoid'
 // import { blobToDataURL} from 'blob-util'
 import './style.scss'
 import test1 from '../../assets/img/test1.jpg'
-import ImgEditor2 from './imgEditor2'
+import ImgEditor from './imgEditor'
 
 const ImgSignature = ({ choosedSrc, choosedId, setShowImgSigModal }) => {
+  // here is the finial image saved after all the editing
   const [finalImg, setFinalImg] = useState([])
 
-  const handleSave = () => {
-    alert('jiba')
-  }
+  // const handleSave = () => {
+  //   alert('jiba')
+  // }
   return (
     <div className="img-mainArea">
       <div className="img-wrapper">
+        {/* {finalImg
+          ? finalImg.map((imgObj) => (
+              <img
+                key={imgObj.id}
+                src={imgObj.src}
+                alt="photo does not exist"
+              />
+            ))
+          : ''} */}
         <div className="img-title text-center pt-2">
-          {/* {finalImg ? (
-            <img src={finalImg.src} alt="photo does not exist" />
-          ) : (
-            ''
-          )} */}
-
           <h3 className="">add your signature here</h3>
           {/* <button
             className="btn btn-primary mb-2 mx-5 save-btn"
@@ -40,11 +44,11 @@ const ImgSignature = ({ choosedSrc, choosedId, setShowImgSigModal }) => {
         </div>
         <hr className="m-0 mb-2" />
         <div id="img-region-body">
-          <ImgEditor2
+          <ImgEditor
             choosedSrc={choosedSrc}
             setFinalImg={setFinalImg}
             setShowImgSigModal={setShowImgSigModal}
-          ></ImgEditor2>
+          ></ImgEditor>
         </div>
       </div>
     </div>

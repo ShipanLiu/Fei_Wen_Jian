@@ -34,7 +34,10 @@
       width: 100%;
       .home-page {
         background-color: pink;
-        // height: 100vh;
+        .control-header {
+          background-color: goldenrod;
+          height: 60px;
+        }
        .tui-image-editor-container{
          border: 4px solid red;
          height: 80vh !important;
@@ -130,4 +133,25 @@
 
 .tui-image-editor-controls-logo {
   display: none !important;
+}
+
+.tui-image-editor-container,
+.top,
+.tui-image-editor-submenu > div {
+  padding-top: 0 !important;
+}
+
+.svg_ic-submenu {
+  display: none !important;
+}
+
+.tui-image-editor-submenu {
+  background-color: hotpink;
+  height: 30px !important;
+}
+
+.tui-image-editor-menu-mask {
+  .apply {
+    display: none !important;
+  }
 }
