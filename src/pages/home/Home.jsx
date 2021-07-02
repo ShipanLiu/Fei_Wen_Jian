@@ -5,6 +5,7 @@ import Purchase from '../../components/sections/purchase/index'
 // import Upload from '../../components/upload/upload-main/index'
 import ImgSignature from '../../components/img-signature/ImgSignature'
 import ImgEditor from '../../components/img-editor/ImgEditor'
+import ImgEditor2 from '../../components/img-signature/imgEditor2'
 
 export default memo(function Home() {
   return (
@@ -14,6 +15,7 @@ export default memo(function Home() {
         <Purchase></Purchase> */}
         {/* <ImgSignature></ImgSignature> */}
         <ImgEditor></ImgEditor>
+        {/* <ImgEditor2></ImgEditor2> */}
       </main>
     </div>
   )

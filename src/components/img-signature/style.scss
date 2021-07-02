@@ -13,8 +13,8 @@
   background: transparent;
   .img-wrapper {
     position: relative;
-    width: 60vh;
-    height: 80vh;
+    width: 90%;
+    height: 100%;
     overflow: hidden;
     color: #000;
     background: #fff;
@@ -25,23 +25,109 @@
       align-items: center;
       justify-content: flex-start;
       overflow: hidden;
-      button {
+      .cancle-btn {
         position: absolute;
         right: 0;
       }
     }
-    .img-body {
+    #img-region-body {
       width: 100%;
-      .regionSelect {
-        .useage-region {
-          &:hover {
-            cursor: pointer !important;
+      .home-page {
+        background-color: pink;
+        // height: 100vh;
+       .tui-image-editor-container{
+         border: 4px solid red;
+         height: 80vh !important;
+          .tui-image-editor-controls {
+          .tui-image-editor-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
+       }
+
         }
-        // img {
-        //   object-fit: contain;
+        // .tui-image-editor-main-container {
+        //   tui-image-editor-main {
+        //     position: relative;
+        //     padding: 0;
+        //     .tui-image-editor-wrap {
+        //       .tui-image-editor-align-wrap {
+        //         display: flex !important;
+        //         flex-direction: column;
+        //       }
+        //     }
+        //   }
         // }
       }
     }
   }
+}
+
+[id^='sb__open-sandbox'] {
+  display: none;
+}
+
+.tui-image-editor-header {
+  display: none;
+}
+
+.tui-image-editor-item.tie-btn-delete,
+.tui-image-editor-item.tie-btn-deleteAll {
+  display: none !important;
+}
+
+.tui-image-editor {
+  max-width: 100vw;
+}
+
+.tui-image-editor-menu {
+  display: none;
+}
+
+.tui-image-editor-header {
+  display: none;
+}
+
+.tui-image-editor-controls-buttons {
+  display: none !important;
+}
+
+.tui-image-editor-main {
+  top: 30px !important;
+}
+
+.tui-image-editor-main {
+  width: 100% !important;
+}
+
+.tui-image-editor-align-wrap {
+  display: inline-block !important;
+}
+
+// .tui-image-editor {
+//  position: absolute !important;
+//  top: 0 !important;
+//  left: 14% !important;
+//  width: 100% !important;
+// }
+
+.lower-canvas,
+.upper-canvas  {
+  width: 100% !important;
+  // height: 60vh !important;
+
+  max-width: 100% !important;
+  // max-height: 100% !important;
+}
+
+.tui-colorpicker-palette-hex {
+  display: none !important;
+}
+.tui-colorpicker-palette-preview {
+  padding: 10px;
+}
+
+.tui-image-editor-controls-logo {
+  display: none !important;
 }

@@ -1,72 +1,89 @@
-import React, { useState, useEffect } from 'react'
-import './style.scss'
+import React, { useRef, useEffect } from 'react'
+import TuiImageEditor from 'tui-image-editor'
 import 'tui-image-editor/dist/tui-image-editor.css'
-import ImageEditor from '../../utils/ImageEditor'
-// 把自己的icon引进来
-const icona = require('tui-image-editor/dist/svg/icon-a.svg')
-const iconb = require('tui-image-editor/dist/svg/icon-b.svg')
-const iconc = require('tui-image-editor/dist/svg/icon-c.svg')
-const icond = require('tui-image-editor/dist/svg/icon-d.svg')
-// const download = require('downloadjs')
-// To change the colors of the image editor, we have:
-// const myTheme = {
-//   'menu.backgroundColor': 'white',
-//   'common.backgroundColor': '#151515',
-//   'downloadButton.backgroundColor': 'white',
-//   'downloadButton.borderColor': 'white',
-//   'downloadButton.color': 'black',
-//   'menu.normalIcon.path': icond,
-//   'menu.activeIcon.path': iconb,
-//   'menu.disabledIcon.path': icona,
-//   'menu.hoverIcon.path': iconc,
-// }
-function HomePage() {
-  const [imageSrc, setImageSrc] = useState('')
-  //  or use useRef()
-  const imageEditor = React.createRef()
-  const saveImageToDisk = () => {
-    alert('download clicked')
-    const imageEditorInst = imageEditor.current.imageEditorInst
-    const data = imageEditorInst.toDataURL()
-    if (data) {
-      const mimeType = data.split(';')[0]
-      const extension = data.split(';')[0].split('/')[1]
-      // download(data, `image.${extension}`, mimeType)
+import './style.scss'
+
+const useEditor = () => {
+  const ref = useRef()
+  useEffect(() => {
+    if (!ref.current) {
+      return
     }
-  }
-  return (
-    <div className="home-page">
-      <div className="center">
-        <h1>Photo Editor</h1>
-        <button className="btn" onClick={saveImageToDisk}>
-          Save Image to Disk
-        </button>
-      </div>
-      <ImageEditor
-        includeUI={{
-          loadImage: {
-            path: imageSrc,
-            name: 'image',
-          },
-          // theme: myTheme,
-          // added the toolbar functionality by adding
-          menu: ['text', 'mask'],
-          initMenu: '',
-          uiSize: {
-            height: `calc(100vh - 160px)`,
-          },
-          menuBarPosition: 'bottom',
-        }}
-        cssMaxHeight={window.innerHeight}
-        cssMaxWidth={window.innerWidth}
-        selectionStyle={{
-          cornerSize: 20,
-          rotatingPointOffset: 70,
-        }}
-        usageStatistics={true}
-        ref={imageEditor}
-      />
-    </div>
-  )
+
+    const tuiEditor = new TuiImageEditor(ref.current, {
+      includeUI: {
+        loadImage: {
+          path: 'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
+          name: 'SampleImage',
+        },
+        initMenu: 'mask',
+        menuBarPosition: 'top',
+        menu: ['mask'],
+      },
+      selectionStyle: {
+        cornerSize: 20,
+        rotatingPointOffset: 70,
+      },
+    })
+
+    console.log(tuiEditor)
+  }, [])
+
+  return ref
 }
-export default HomePage
+
+const ImageEditor = () => {
+  const ref = useEditor()
+
+  return <div ref={ref} />
+}
+
+export default ImageEditor
+
+// import React, { useState, useRef } from 'react'
+// import 'tui-image-editor/dist/tui-image-editor.css'
+// import ImageEditor from '@toast-ui/react-image-editor'
+// // import ImageEditor from '../../utils/ImageEditor'
+
+// export default function ImgEditor() {
+//   const [showCanvas, setShowCanvas] = useState(false)
+//   const imageEditorRef = useRef()
+
+//   const addIcon = () => {
+//     setShowCanvas(!showCanvas)
+//   }
+
+//   const handleCrop = () => {
+//     alert('jiba')
+//   }
+
+//   const handleDraw = () => {
+//     alert('jiba')
+//   }
+//   return (
+//     <div>
+//       <button className="btn btn-info" onClick={addIcon}>
+//         add icon
+//       </button>
+//       <button className="btn btn-info" onClick={handleCrop}>
+//         crop
+//       </button>
+//       <button className="btn btn-info" onClick={handleDraw}>
+//         draw
+//       </button>
+//       {showCanvas ? (
+//         <ImageEditor
+//           ref={imageEditorRef}
+//           includeUI={{
+//             loadImage: {
+//               path: 'https://qa4-cdata-app.sprinklr.com/DAM/400002/882f0bb5-4d7d-4f81-a043-bda1b3794f93-1388469934/aspectratio2.jpg',
+//               name: 'TempImage',
+//             },
+//           }}
+//         ></ImageEditor>
+//       ) : (
+//         ''
+//       )}
+//     </div>
+//   )
+// }
