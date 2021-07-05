@@ -77,7 +77,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
         }
       )
       .then((result) => {
-        console.log(result)
+        // console.log(result)
       })
       .catch((err) => {
         alert(err)
