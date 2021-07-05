@@ -60,22 +60,19 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     var canvasSize = editorInstance.getCanvasSize()
     console.log(canvasSize)
     editorInstance
-      .addText(
-        `${userLocation.city} ${userLocation.country_name}, ${timestamp()}`,
-        {
-          styles: {
-            fill: '#000',
-            fontSize: 80,
-            fontWeight: 'bold',
-          },
-          position: {
-            x: canvasSize.width / 3,
-            y: canvasSize.height / 1.5,
-            // x: 400,
-            // y: 3000,
-          },
-        }
-      )
+      .addText(`${userLocation.city}, ${timestamp()}`, {
+        styles: {
+          fill: '#000',
+          fontSize: 80,
+          fontWeight: 'bold',
+        },
+        position: {
+          x: canvasSize.width / 3,
+          y: canvasSize.height / 1.5,
+          // x: 400,
+          // y: 3000,
+        },
+      })
       .then((result) => {
         // console.log(result)
       })
