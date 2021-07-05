@@ -8,10 +8,11 @@ const iconb = require('tui-image-editor/dist/svg/icon-b.svg')
 const iconc = require('tui-image-editor/dist/svg/icon-c.svg')
 const icond = require('tui-image-editor/dist/svg/icon-d.svg')
 
-function ImgEditor2({ setFinalImg, setShowImgSigModal, choosedSrc }) {
+function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const imageEditor = React.createRef()
   const [userLocation, setUserLocation] = useState(null)
 
+  // get Location API
   useEffect(() => {
     fetch(
       'https://geolocation-db.com/json/e4f42070-ad2d-11eb-adf1-cf51da9b3410'
@@ -54,10 +55,7 @@ function ImgEditor2({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     editorInstance.redo()
   }
 
-  const getUserGeolocationDetails = () => {}
-
   const addDataAndLocation = async () => {
-    console.log(await getUserGeolocationDetails())
     const editorInstance = imageEditor.current.getInstance()
     var canvasSize = editorInstance.getCanvasSize()
     console.log(canvasSize)
@@ -104,7 +102,7 @@ function ImgEditor2({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             onClick={addDataAndLocation}
           >
             Add
-            <i class="bi bi-geo-alt-fill mx-1"></i>+
+            <i className="bi bi-geo-alt-fill mx-1"></i>+
             <i className="bi bi-calendar-date-fill mx-1"></i>
           </span>
         </div>
@@ -137,4 +135,4 @@ function ImgEditor2({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     </div>
   )
 }
-export default ImgEditor2
+export default ImgEditor

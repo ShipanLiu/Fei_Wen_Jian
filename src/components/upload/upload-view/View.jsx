@@ -1,4 +1,4 @@
-import React, { memo, useRef, useCallback, useState, useEffect } from 'react'
+import React, { useRef, useCallback, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { nanoid } from 'nanoid'
 import WebCam from '../../webcam/index'
@@ -42,12 +42,10 @@ export default function View({
 
   const handleImg = (src, id) => {
     handleImgModal(src, id)
-    // console.log(`id: ${id} is click and the correspond modal should be opened`)
-    // setShowImgSig(!showImgSig)
   }
 
   return (
-    <d iv className="container mb-3">
+    <div className="container mb-3">
       <div className="upload-wrapper container">
         {showWebCam ? (
           <div className="webcam-area">
@@ -124,6 +122,6 @@ export default function View({
           </div>
         </div>
       </div>
-    </d>
+    </div>
   )
 }
