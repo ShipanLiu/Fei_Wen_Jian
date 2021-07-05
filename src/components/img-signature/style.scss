@@ -148,3 +148,21 @@
     display: none !important;
   }
 }
+
+.tui-image-editor-menu-text {
+
+  .tui-image-editor-submenu-item {
+    height: 20px !important;
+    .tie-text-effect-button,
+    .tui-image-editor-partition,
+    .tie-text-align-button,
+    .tie-text-color,
+    .tui-image-editor-button {
+      display: none !important;
+    }
+    .tui-image-editor-newline,
+    .tui-image-editor-range-wrap {
+      margin-top: -55px !important;
+    }
+  }
+}
