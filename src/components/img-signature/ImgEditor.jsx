@@ -14,9 +14,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [userLocation, setUserLocation] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [position, setPosition] = useState({})
-  const [signature, setSignature] = useState(null)
   const [signatureSrc, setSignatureSrc] = useState(null)
-  const [signatureId, setSignatureId] = useState(null)
+  const [signatureId, setSignatureId] = useState(0)
   const fileInputRef = useRef()
 
   // get Location API
@@ -45,18 +44,16 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }, [])
 
   useEffect(() => {
-    if (signature) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        const img = new Image()
-        img.src = reader.result
-        setSignatureSrc(img.src)
-      }
-      reader.readAsDataURL(signature)
-    }
-  }, [signature])
+    console.log('enter Effect' + position)
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.addImageObject(signatureSrc).then((objectProps) => {
+      console.log(objectProps.id)
+      setSignatureId(objectProps.id)
+    })
+  }, [signatureSrc])
 
   useEffect(() => {
+    // 进入改变位置
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.setObjectPosition(signatureId, {
       x: position.x,
@@ -145,18 +142,25 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const handleOnChange = (e) => {
-    console.log('jibadan')
+    console.log('handleOnChange')
     const file = e.target.files[0]
     if (file && file.type.substr(0, 5) === 'image') {
-      setSignature(file)
+      const reader = new FileReader()
+      reader.onload = () => {
+        const img = new Image()
+        img.src = reader.result
+        setSignatureSrc(img.src)
+        // console.log(img.src)
+      }
+      reader.readAsDataURL(file)
     } else {
-      setSignature(null)
+      setSignatureSrc(null)
     }
   }
 
   const addSignature = () => {
-    // 自己手写一个canvas 加载图片。
-    console.log(document.querySelector('.tie-mask-image-file').click())
+    // document.querySelector('.tie-mask-image-file').click()
+    fileInputRef.current.click()
   }
 
   const onTextEditing = () => {
@@ -168,17 +172,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       setShowModal(false)
     })
   }
-
-  const test = () => {
-    console.log(position)
-    fileInputRef.current.click()
-    const editorInstance = imageEditor.current.getInstance()
-    editorInstance.addImageObject(signatureSrc, {}).then((objectProps) => {
-      setSignatureId(objectProps.id)
-    })
-  }
-
-  console.log(signatureId)
 
   const closeModal = () => {
     setShowModal(false)
@@ -216,9 +209,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
               <i className="bi bi-geo-alt-fill mx-1"></i>+
               <i className="bi bi-calendar-date-fill mx-1"></i>
             </span>
-            <Button color="secondary" onClick={test}>
-              test
-            </Button>
             {showModal ? (
               <div className="toggle-controll-bar mb-2 mx-5 d-flex justify-content-flex-start align-items-center">
                 <Button color="primary" onClick={addSignature} className="mx-2">
