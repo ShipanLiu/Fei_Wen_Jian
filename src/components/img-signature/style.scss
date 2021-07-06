@@ -80,9 +80,6 @@
   max-height: 1000px !important;
 }
 
-.tui-image-editor-menu {
-  display: none;
-}
 
 .tui-image-editor-header {
   display: none;
@@ -143,11 +140,11 @@
   height: 30px !important;
 }
 
-.tui-image-editor-menu-mask {
-  .apply {
-    display: none !important;
-  }
-}
+// .tui-image-editor-menu-mask {
+//   .apply {
+//     display: none !important;
+//   }
+// }
 
 .tui-image-editor-menu-text {
 
@@ -165,4 +162,23 @@
       margin-top: -55px !important;
     }
   }
+}
+
+// text-editor-icon
+// .tie-btn-text{
+//   display: none !important;
+// }
+
+.tie-crop-preset-button {
+  display: none !important
+}
+
+.active {
+  background-color: hotpink !important;
+}
+
+.tie-shape-button,
+.tui-image-editor-partition,
+.tie-shape-color-button{
+  display: none !important;
 }

@@ -115,11 +115,26 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     editorInstance.redo()
   }
 
+  const handleDelete = () => {
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.clearObjects()
+  }
+
+  const testClick = () => {
+    document.querySelector('.tie-btn-text').click()
+  }
+
   const getPosition = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('mousedown', function (event, originPointer) {
+      // if (showModal === true) {
+      //   testClick()
+      // }
       setShowModal(true)
       setPosition(originPointer)
+
+      // testClick()
+
       // console.log(event)
     })
   }
@@ -137,8 +152,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
           fontWeight: 'bold',
         },
         position: {
-          x: position.x,
-          y: position.y,
+          x: position.x - 240,
+          y: position.y - 60,
         },
       })
       .then((result) => {
@@ -213,8 +228,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       />
       {/* main page */}
       <div className="home-page">
-        <div className="control-header  pt-2">
-          <div className="center d-flex justify-content-flex-start align-items-center">
+        <div className="control-header">
+          <div className="center d-flex justify-content-flex-start align-items-center pt-2">
             <span className="btn btn-primary mb-2 mx-1" onClick={saveImage}>
               <i className="bi bi-save2-fill"></i>
             </span>
@@ -224,23 +239,22 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             <span className="btn btn-primary mb-2 mx-1" onClick={handleRedo}>
               <i className="bi bi-arrow-90deg-right"></i>
             </span>
-            <span
-              className="btn btn-primary mb-2 mx-1 d-flex justify-content-flex-start align-items-center"
-              onClick={addDataAndLocation}
-            >
-              Add
-              <i className="bi bi-geo-alt-fill mx-1"></i>+
-              <i className="bi bi-calendar-date-fill mx-1"></i>
+            <span className="btn btn-primary mb-2 mx-1" onClick={handleDelete}>
+              <i class="bi bi-trash-fill"></i>
             </span>
+            <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
+              test T
+            </span>
+
             {showModal ? (
-              <div className="toggle-controll-bar mb-2 mx-5 d-flex justify-content-flex-start align-items-center">
-                <Button color="primary" onClick={addSignature} className="mx-2">
+              <div className="toggle-controll-bar mb-2 mx-5 d-flex justify-content-flex-start align-items-center bg-danger">
+                <Button color="primary" onClick={addSignature} className="m-2">
                   Sign
                 </Button>{' '}
                 <Button color="secondary" onClick={addDataAndLocation}>
                   Data+Loc
                 </Button>
-                <Button color="success" onClick={addMark}>
+                <Button color="success" onClick={addMark} className="m-2">
                   Mark
                 </Button>
               </div>
