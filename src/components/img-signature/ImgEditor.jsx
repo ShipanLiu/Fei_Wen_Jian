@@ -16,6 +16,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [position, setPosition] = useState({})
   const [signatureSrc, setSignatureSrc] = useState(null)
   const [signatureId, setSignatureId] = useState(0)
+  const [markPosition, setMarkPosition] = useState(null)
   const fileInputRef = useRef()
 
   // get Location API
@@ -36,12 +37,12 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     getPosition()
   }, [])
 
-  useEffect(() => {
-    document.querySelector('.tie-btn-text').addEventListener('click', () => {
-      console.log('.tie-btn-text点击')
-      setShowModal(false)
-    })
-  }, [])
+  // useEffect(() => {
+  //   document.querySelector('.tie-btn-text').addEventListener('click', () => {
+  //     console.log('.tie-btn-text点击')
+  //     setShowModal(false)
+  //   })
+  // }, [])
 
   useEffect(() => {
     console.log('enter Effect' + position)
@@ -50,6 +51,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       console.log(objectProps.id)
       setSignatureId(objectProps.id)
     })
+    setSignatureSrc(null)
   }, [signatureSrc])
 
   useEffect(() => {
@@ -61,6 +63,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       originX: 'left',
       originY: 'top',
     })
+    setSignatureId(null)
   }, [signatureId])
 
   // useEffect(() => {
@@ -91,9 +94,14 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     // convert to base64
     const data = imageEditorInst.toDataURL()
     if (data) {
-      const imgObj = { id: nanoid(), src: data }
+      const imgObj = {
+        id: nanoid(),
+        finalImgSrc: data,
+        OriginImgSrc: choosedSrc,
+        markPosition: markPosition,
+      }
+      console.log(imgObj)
       setFinalImg((preImgObj) => [...preImgObj, imgObj])
-      // console.log(data)
     }
   }
 
@@ -163,6 +171,21 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     fileInputRef.current.click()
   }
 
+  const addMark = () => {
+    setMarkPosition(position)
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.addShape('triangle', {
+      fill: '#0D6EFD',
+      stroke: 'blue',
+      strokeWidth: 10,
+      width: 100,
+      height: 100,
+      left: position.x,
+      top: position.y,
+      isRegular: true,
+    })
+  }
+
   const onTextEditing = () => {
     setShowModal(false)
     const editorInstance = imageEditor.current.getInstance()
@@ -212,10 +235,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             {showModal ? (
               <div className="toggle-controll-bar mb-2 mx-5 d-flex justify-content-flex-start align-items-center">
                 <Button color="primary" onClick={addSignature} className="mx-2">
-                  Add Signature
+                  Sign
                 </Button>{' '}
                 <Button color="secondary" onClick={addDataAndLocation}>
-                  Add Data and Location
+                  Data+Loc
+                </Button>
+                <Button color="success" onClick={addMark}>
+                  Mark
                 </Button>
               </div>
             ) : (
@@ -230,7 +256,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
               name: 'image',
             },
             theme: myTheme,
-            menu: ['crop', 'text', 'mask'],
+            menu: ['crop', 'text', 'shape'],
             initMenu: '',
             uiSize: {
               width: '100%',
