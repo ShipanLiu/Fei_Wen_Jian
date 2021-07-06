@@ -9,7 +9,7 @@ const ImgSignature = ({ choosedSrc, choosedId, setShowImgSigModal }) => {
   return (
     <div className="img-mainArea">
       <div className="img-wrapper">
-        <div className="img-title text-center pt-2">
+        {/* <div className="img-title text-center pt-2">
           <h3 className="">add your signature here</h3>
           <button
             className="btn btn-primary mb-2 mx-1 cancle-btn"
@@ -20,7 +20,7 @@ const ImgSignature = ({ choosedSrc, choosedId, setShowImgSigModal }) => {
             cancle
           </button>
         </div>
-        <hr className="m-0 mb-2" />
+        <hr className="m-0 mb-2" /> */}
         <div id="img-region-body">
           <ImgEditor
             choosedSrc={choosedSrc}

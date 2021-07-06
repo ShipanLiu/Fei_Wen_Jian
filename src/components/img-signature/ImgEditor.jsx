@@ -4,6 +4,12 @@ import 'tui-image-editor/dist/tui-image-editor.css'
 import ImageEditor from '@toast-ui/react-image-editor'
 import { nanoid } from 'nanoid'
 import timestamp from '../../utils/timestamp'
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap'
 const icona = require('tui-image-editor/dist/svg/icon-a.svg')
 const iconb = require('tui-image-editor/dist/svg/icon-b.svg')
 const iconc = require('tui-image-editor/dist/svg/icon-c.svg')
@@ -13,16 +19,19 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const imageEditor = React.createRef()
   const [userLocation, setUserLocation] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(true)
   const [position, setPosition] = useState({})
   const [signatureSrc, setSignatureSrc] = useState(null)
   const [signatureId, setSignatureId] = useState(0)
   const [markPosition, setMarkPosition] = useState(null)
+  const [pointClicked, setpointClicked] = useState(false)
+  const [showCloseTextBtn, setShowCloseTextBtn] = useState(false)
   const fileInputRef = useRef()
 
   // get Location API
   useEffect(() => {
     onTextEditing()
-    // onObjectActivated()
+    onObjectActivated()
   }, [])
 
   useEffect(() => {
@@ -35,7 +44,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   useEffect(() => {
     getPosition()
-  }, [])
+  }, [position])
 
   // useEffect(() => {
   //   document.querySelector('.tie-btn-text').addEventListener('click', () => {
@@ -65,6 +74,12 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     })
     setSignatureId(null)
   }, [signatureId])
+
+  // useEffect(() => {
+  //   document.querySelector('.upper-canvas').width = window.innerWidth * 0.5
+  //   document.querySelector('.upper-canvas').height = window.innerHeight * 0.5
+  //   console.log(document.querySelector('.upper-canvas').width)
+  // }, [])
 
   // useEffect(() => {
   //   var c = document.querySelector('.upper-canvas ')
@@ -121,26 +136,25 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const testClick = () => {
-    document.querySelector('.tie-btn-text').click()
+    // document.querySelector('.tie-btn-text').click()
+    // document.querySelector('.cancel').click()
+    console.log('height' + window.innerHeight)
+    console.log('width' + window.innerWidth)
   }
 
   const getPosition = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('mousedown', function (event, originPointer) {
-      // if (showModal === true) {
-      //   testClick()
-      // }
       setShowModal(true)
+      setpointClicked(true)
       setPosition(originPointer)
-
-      // testClick()
-
-      // console.log(event)
     })
   }
 
   const addDataAndLocation = async () => {
-    closeModal()
+    setShowCloseTextBtn(true)
+    setpointClicked(false)
+    setShowModal(false)
     const editorInstance = imageEditor.current.getInstance()
     var canvasSize = editorInstance.getCanvasSize()
     console.log(canvasSize)
@@ -182,11 +196,14 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const addSignature = () => {
+    setpointClicked(false)
     // document.querySelector('.tie-mask-image-file').click()
     fileInputRef.current.click()
   }
 
   const addMark = () => {
+    setpointClicked(false)
+    setShowModal(false)
     setMarkPosition(position)
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.addShape('triangle', {
@@ -202,17 +219,24 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const onTextEditing = () => {
-    setShowModal(false)
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('textEditing', function (event) {
       console.log(event)
       console.log('text editing')
       setShowModal(false)
+      setpointClicked(false)
     })
   }
 
-  const closeModal = () => {
-    setShowModal(false)
+  const onObjectActivated = () => {
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.on('objectActivated', function (props) {
+      console.log(showModal)
+      console.log(props.type)
+      console.log(props.id)
+      setShowModal(false)
+      setpointClicked(false)
+    })
   }
 
   return (
@@ -228,8 +252,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       />
       {/* main page */}
       <div className="home-page">
-        <div className="control-header">
-          <div className="center d-flex justify-content-flex-start align-items-center pt-2">
+        <div className="control-header ">
+          <div className="header-first-part d-flex justify-content-flex-start align-items-center">
             <span className="btn btn-primary mb-2 mx-1" onClick={saveImage}>
               <i className="bi bi-save2-fill"></i>
             </span>
@@ -245,10 +269,38 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
               test T
             </span>
-
+            <span
+              className="btn btn-primary mb-2 mx-1"
+              onClick={() => {
+                setShowImgSigModal(false)
+              }}
+            >
+              cancel
+            </span>
+          </div>
+          <hr className="m-0" />
+          <div className="header-second-part d-flex justify-content-flex-start align-items-center">
             {showModal ? (
-              <div className="toggle-controll-bar mb-2 mx-5 d-flex justify-content-flex-start align-items-center bg-danger">
-                <Button color="primary" onClick={addSignature} className="m-2">
+              <Dropdown
+                isOpen={true}
+                toggle={() => {
+                  setDropdownOpen((prevState) => !prevState)
+                }}
+                className="toggle-controll-bar bg-danger"
+              >
+                <DropdownToggle caret className="d-none">
+                  Choose Function
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={addDataAndLocation}>
+                    Data+Loc
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={addSignature}>Sign</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={addMark}>Mark</DropdownItem>
+                </DropdownMenu>
+                {/* <Button color="primary" onClick={addSignature} className="m-2">
                   Sign
                 </Button>{' '}
                 <Button color="secondary" onClick={addDataAndLocation}>
@@ -256,8 +308,28 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
                 </Button>
                 <Button color="success" onClick={addMark} className="m-2">
                   Mark
-                </Button>
-              </div>
+                </Button> */}
+              </Dropdown>
+            ) : (
+              ''
+            )}
+            {pointClicked ? (
+              <button className="btn btn-info mx-3">
+                you choosed a position
+              </button>
+            ) : (
+              ''
+            )}
+            {showCloseTextBtn ? (
+              <button
+                className="btn btn-danger mx-1"
+                onClick={() => {
+                  setShowCloseTextBtn(false)
+                  document.querySelector('.tie-btn-text').click()
+                }}
+              >
+                unchoose Text editing
+              </button>
             ) : (
               ''
             )}
@@ -270,11 +342,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
               name: 'image',
             },
             theme: myTheme,
-            menu: ['crop', 'text', 'shape'],
-            initMenu: '',
+            menu: ['text', 'shape'],
+            initMenu: 'shape',
             uiSize: {
-              width: '100%',
-              height: 'auto',
+              width: `${window.innerWidth}`,
+              height: `${window.innerHeight}`,
+              // width: '300px',
+              // height: '300px',
             },
             menuBarPosition: 'top',
           }}
