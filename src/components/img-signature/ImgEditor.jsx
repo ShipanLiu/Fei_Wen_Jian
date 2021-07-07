@@ -151,6 +151,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
           x: position.x - 240,
           y: position.y - 60,
         },
+        autofocus: false,
       })
       .then((result) => {
         // console.log(result)
