@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Button } from 'reactstrap'
+import { isMobile } from 'react-device-detect'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import 'tui-image-editor/dist/tui-image-editor.css'
 import ImageEditor from '@toast-ui/react-image-editor'
 import { nanoid } from 'nanoid'
@@ -24,8 +25,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [signatureSrc, setSignatureSrc] = useState(null)
   const [signatureId, setSignatureId] = useState(0)
   const [markPosition, setMarkPosition] = useState(null)
-  const [pointClicked, setpointClicked] = useState(false)
   const [showCloseTextBtn, setShowCloseTextBtn] = useState(false)
+  const [modalToggle, setModalToggle] = useState(false)
   const fileInputRef = useRef()
 
   // get Location API
@@ -44,14 +45,22 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   useEffect(() => {
     getPosition()
+    setDropdownOpen(true)
   }, [position])
 
-  // useEffect(() => {
-  //   document.querySelector('.tie-btn-text').addEventListener('click', () => {
-  //     console.log('.tie-btn-text点击')
-  //     setShowModal(false)
-  //   })
-  // }, [])
+  useEffect(() => {
+    const imgEditorSize = document.querySelector('.tui-image-editor')
+    const imgWrapper = document.querySelector('.img-wrapper')
+    if (isMobile) {
+      imgWrapper.style.width = '95%'
+      console.log('here is mobile')
+      // imgEditorSize.style.width = '300px !important'
+    } else {
+      console.log('here is web')
+      imgWrapper.style.width = '50%'
+      // imgEditorSize.style.width = '400px !important'
+    }
+  }, [])
 
   useEffect(() => {
     console.log('enter Effect' + position)
@@ -132,7 +141,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   const handleDelete = () => {
     const editorInstance = imageEditor.current.getInstance()
-    editorInstance.clearObjects()
+    editorInstance.removeActiveObject()
   }
 
   const testClick = () => {
@@ -146,14 +155,31 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('mousedown', function (event, originPointer) {
       setShowModal(true)
-      setpointClicked(true)
+      setModalToggle(true, () => {
+        setTimeout(() => {
+          setModalToggle(false)
+        }, 1000)
+      })
       setPosition(originPointer)
+      setDropdownOpen(true)
+      // setTimeout(() => {
+      //   editorInstance.addShape('circle', {
+      //     fill: '#FF6D22',
+      //     stroke: '#FF6D22',
+      //     strokeWidth: 10,
+      //     width: 2,
+      //     height: 2,
+      //     left: originPointer.x,
+      //     top: originPointer.y,
+      //     isRegular: true,
+      //   })
+      // }, 1000)
     })
+    editorInstance.changeCursor('crosshair')
   }
 
   const addDataAndLocation = async () => {
     setShowCloseTextBtn(true)
-    setpointClicked(false)
     setShowModal(false)
     const editorInstance = imageEditor.current.getInstance()
     var canvasSize = editorInstance.getCanvasSize()
@@ -176,6 +202,9 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       .catch((err) => {
         alert(err)
       })
+    setShowCloseTextBtn(false)
+    document.querySelector('.tie-btn-text').click()
+    editorInstance.changeCursor('crosshair')
   }
 
   const handleOnChange = (e) => {
@@ -196,13 +225,11 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const addSignature = () => {
-    setpointClicked(false)
     // document.querySelector('.tie-mask-image-file').click()
     fileInputRef.current.click()
   }
 
   const addMark = () => {
-    setpointClicked(false)
     setShowModal(false)
     setMarkPosition(position)
     const editorInstance = imageEditor.current.getInstance()
@@ -216,6 +243,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       top: position.y,
       isRegular: true,
     })
+    editorInstance.changeCursor('crosshair')
   }
 
   const onTextEditing = () => {
@@ -224,7 +252,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       console.log(event)
       console.log('text editing')
       setShowModal(false)
-      setpointClicked(false)
     })
   }
 
@@ -235,12 +262,18 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       console.log(props.type)
       console.log(props.id)
       setShowModal(false)
-      setpointClicked(false)
+      if (props.type === 'i-text') {
+        setShowCloseTextBtn(true)
+      }
     })
   }
 
   return (
     <>
+      {/* Modal part */}
+      {/* <Modal isOpen={modalToggle}>
+        <ModalBody>clicked</ModalBody>
+      </Modal> */}
       {/*for uploading the signature  */}
       <input
         hidden
@@ -266,9 +299,9 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             <span className="btn btn-primary mb-2 mx-1" onClick={handleDelete}>
               <i class="bi bi-trash-fill"></i>
             </span>
-            <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
+            {/* <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
               test T
-            </span>
+            </span> */}
             <span
               className="btn btn-primary mb-2 mx-1"
               onClick={() => {
@@ -277,19 +310,21 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             >
               cancel
             </span>
-          </div>
-          <hr className="m-0" />
-          <div className="header-second-part d-flex justify-content-flex-start align-items-center">
             {showModal ? (
               <Dropdown
-                isOpen={true}
+                isOpen={dropdownOpen}
                 toggle={() => {
-                  setDropdownOpen((prevState) => !prevState)
+                  return
                 }}
                 className="toggle-controll-bar bg-danger"
               >
-                <DropdownToggle caret className="d-none">
-                  Choose Function
+                <DropdownToggle
+                  caret
+                  onClick={() => {
+                    setDropdownOpen(!dropdownOpen)
+                  }}
+                >
+                  choose
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem onClick={addDataAndLocation}>
@@ -299,33 +334,28 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
                   <DropdownItem onClick={addSignature}>Sign</DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick={addMark}>Mark</DropdownItem>
+                  {/* {showCloseTextBtn ? (
+                    <DropdownItem onClick={addMark} className="bg-danger">
+                      close TextEditer
+                    </DropdownItem>
+                  ) : (
+                    ''
+                  )} */}
                 </DropdownMenu>
-                {/* <Button color="primary" onClick={addSignature} className="m-2">
-                  Sign
-                </Button>{' '}
-                <Button color="secondary" onClick={addDataAndLocation}>
-                  Data+Loc
-                </Button>
-                <Button color="success" onClick={addMark} className="m-2">
-                  Mark
-                </Button> */}
               </Dropdown>
             ) : (
               ''
             )}
-            {pointClicked ? (
-              <button className="btn btn-info mx-3">
-                you choosed a position
-              </button>
-            ) : (
-              ''
-            )}
+          </div>
+          <hr className="m-0" />
+          <div className="header-second-part d-flex justify-content-flex-start align-items-center">
             {showCloseTextBtn ? (
               <button
                 className="btn btn-danger mx-1"
                 onClick={() => {
                   setShowCloseTextBtn(false)
                   document.querySelector('.tie-btn-text').click()
+                  setDropdownOpen(false)
                 }}
               >
                 unchoose Text editing

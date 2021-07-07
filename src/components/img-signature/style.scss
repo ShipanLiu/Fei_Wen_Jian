@@ -13,7 +13,7 @@
   background: transparent;
   .img-wrapper {
     // position: relative;
-    width: 90%;
+    // width: 90%;
     height: 100%;
     overflow: hidden;
     color: #000;
@@ -36,7 +36,7 @@
         // background-color: pink;
         .control-header {
           background-color: goldenrod;
-          height: 60px;
+          height: 80px;
         }
        .tui-image-editor-container{
          border: 1px solid #000;
@@ -68,8 +68,10 @@
   display: none !important;
 }
 
+
+// here is for the size of whole canvas
 .tui-image-editor {
-  top: 0 !important;
+  top: 30px !important;
   border: 3px solid yellowgreen;
   // padding: 20px !important;
   height: 450px !important;
