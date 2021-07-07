@@ -3,14 +3,10 @@ import { isMobile } from 'react-device-detect'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 import 'tui-image-editor/dist/tui-image-editor.css'
 import ImageEditor from '@toast-ui/react-image-editor'
+// import { ToastContainer, toast, Flip, Slide } from 'react-toastify'
+// import 'react-toastify/dist/ReactToastify.css'
 import { nanoid } from 'nanoid'
 import timestamp from '../../utils/timestamp'
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from 'reactstrap'
 const icona = require('tui-image-editor/dist/svg/icon-a.svg')
 const iconb = require('tui-image-editor/dist/svg/icon-b.svg')
 const iconc = require('tui-image-editor/dist/svg/icon-c.svg')
@@ -21,12 +17,12 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [userLocation, setUserLocation] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(true)
-  const [position, setPosition] = useState({})
+  const [position, setPosition] = useState(null)
   const [signatureSrc, setSignatureSrc] = useState(null)
   const [signatureId, setSignatureId] = useState(0)
-  const [markPosition, setMarkPosition] = useState(null)
+  const [markPosition, setMarkPosition] = useState({})
   const [showCloseTextBtn, setShowCloseTextBtn] = useState(false)
-  const [modalToggle, setModalToggle] = useState(false)
+  // const [preventTostify, setPreventTostify] = useState(false)
   const fileInputRef = useRef()
 
   // get Location API
@@ -76,29 +72,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     // 进入改变位置
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.setObjectPosition(signatureId, {
-      x: position.x,
-      y: position.y,
+      x: position?.x,
+      y: position?.y,
       originX: 'left',
       originY: 'top',
     })
     setSignatureId(null)
   }, [signatureId])
-
-  // useEffect(() => {
-  //   document.querySelector('.upper-canvas').width = window.innerWidth * 0.5
-  //   document.querySelector('.upper-canvas').height = window.innerHeight * 0.5
-  //   console.log(document.querySelector('.upper-canvas').width)
-  // }, [])
-
-  // useEffect(() => {
-  //   var c = document.querySelector('.upper-canvas ')
-  //   console.log(c)
-  //   var ctx = c.getContext('2d')
-  //   var img = new Image()
-  //   img.src = signatureSrc
-  //   ctx.drawImage(img, position.x, position.y)
-  //   setSignature(null)
-  // }, [signature])
 
   const myTheme = {
     'menu.backgroundColor': 'white',
@@ -144,36 +124,12 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     editorInstance.removeActiveObject()
   }
 
-  const testClick = () => {
-    // document.querySelector('.tie-btn-text').click()
-    // document.querySelector('.cancel').click()
-    console.log('height' + window.innerHeight)
-    console.log('width' + window.innerWidth)
-  }
-
   const getPosition = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('mousedown', function (event, originPointer) {
       setShowModal(true)
-      setModalToggle(true, () => {
-        setTimeout(() => {
-          setModalToggle(false)
-        }, 1000)
-      })
       setPosition(originPointer)
       setDropdownOpen(true)
-      // setTimeout(() => {
-      //   editorInstance.addShape('circle', {
-      //     fill: '#FF6D22',
-      //     stroke: '#FF6D22',
-      //     strokeWidth: 10,
-      //     width: 2,
-      //     height: 2,
-      //     left: originPointer.x,
-      //     top: originPointer.y,
-      //     isRegular: true,
-      //   })
-      // }, 1000)
     })
     editorInstance.changeCursor('crosshair')
   }
@@ -270,11 +226,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   return (
     <>
-      {/* Modal part */}
-      {/* <Modal isOpen={modalToggle}>
-        <ModalBody>clicked</ModalBody>
-      </Modal> */}
-      {/*for uploading the signature  */}
       <input
         hidden
         type="file"
@@ -286,7 +237,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       {/* main page */}
       <div className="home-page">
         <div className="control-header ">
-          <div className="header-first-part d-flex justify-content-flex-start align-items-center">
+          <div className="header-first-part d-flex justify-content-flex-start align-items-center pt-1">
             <span className="btn btn-primary mb-2 mx-1" onClick={saveImage}>
               <i className="bi bi-save2-fill"></i>
             </span>
@@ -297,11 +248,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
               <i className="bi bi-arrow-90deg-right"></i>
             </span>
             <span className="btn btn-primary mb-2 mx-1" onClick={handleDelete}>
-              <i class="bi bi-trash-fill"></i>
+              <i className="bi bi-trash-fill"></i>
             </span>
-            {/* <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
-              test T
-            </span> */}
             <span
               className="btn btn-primary mb-2 mx-1"
               onClick={() => {
@@ -310,45 +258,9 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             >
               cancel
             </span>
-            {showModal ? (
-              <Dropdown
-                isOpen={dropdownOpen}
-                toggle={() => {
-                  return
-                }}
-                className="toggle-controll-bar bg-danger"
-              >
-                <DropdownToggle
-                  caret
-                  onClick={() => {
-                    setDropdownOpen(!dropdownOpen)
-                  }}
-                >
-                  choose
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem onClick={addDataAndLocation}>
-                    Data+Loc
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem onClick={addSignature}>Sign</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem onClick={addMark}>Mark</DropdownItem>
-                  {/* {showCloseTextBtn ? (
-                    <DropdownItem onClick={addMark} className="bg-danger">
-                      close TextEditer
-                    </DropdownItem>
-                  ) : (
-                    ''
-                  )} */}
-                </DropdownMenu>
-              </Dropdown>
-            ) : (
-              ''
-            )}
-          </div>
-          <hr className="m-0" />
-          <div className="header-second-part d-flex justify-content-flex-start align-items-center">
+            {/* <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
+              test
+            </span> */}
             {showCloseTextBtn ? (
               <button
                 className="btn btn-danger mx-1"
@@ -358,8 +270,55 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
                   setDropdownOpen(false)
                 }}
               >
-                unchoose Text editing
+                Finish Text Modify
               </button>
+            ) : (
+              ''
+            )}
+          </div>
+          <hr className="m-0" />
+          <div className="header-second-part d-flex justify-content-flex-start align-items-center mt-1">
+            {showModal ? (
+              <button
+                className="btn btn-danger"
+                onClick={() => {
+                  setDropdownOpen(!dropdownOpen)
+                }}
+              >
+                choose
+                {dropdownOpen ? (
+                  <i className="bi bi-arrow-right-short mx-1"></i>
+                ) : (
+                  <i className="bi bi-arrow-down-short"></i>
+                )}
+              </button>
+            ) : (
+              ''
+            )}
+            {dropdownOpen && showModal ? (
+              <div className="mx-2 d-flex align-items-center justify-content-center">
+                <button
+                  type="button"
+                  className="btn btn-success mx-1 "
+                  onClick={addDataAndLocation}
+                >
+                  Data+Loc
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  onClick={addSignature}
+                >
+                  Sign
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary mx-1"
+                  onClick={addMark}
+                >
+                  Mark
+                </button>
+              </div>
             ) : (
               ''
             )}

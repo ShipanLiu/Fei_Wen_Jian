@@ -1,6 +1,6 @@
 .img-mainArea {
   position: fixed;
-  top: 0;
+  top: 10px;
   left: 0;
   z-index: 999;
   display: flex;
@@ -17,7 +17,7 @@
     height: 100%;
     overflow: hidden;
     color: #000;
-    background: #fff;
+    // background: #fff;
     border-radius: 10px;
     box-shadow: 0 5px 16px rgba(19, 18, 18, 0.2);
     .img-title {
@@ -36,7 +36,7 @@
         // background-color: pink;
         .control-header {
           background-color: goldenrod;
-          height: 80px;
+          height: 94px;
         }
        .tui-image-editor-container{
          border: 1px solid #000;
@@ -192,4 +192,18 @@
 
 .tui-image-editor-main-container {
   height: 500px !important;
+}
+
+// .toggle-controll-bar {
+//   .dropdown-toggle {
+
+//   }
+//   .dropdown-menu {
+//     top: -38px !important;
+//     left: 91px !important;
+//   }
+// }
+
+.tui-image-editor-submenu {
+  display: none !important;
 }
