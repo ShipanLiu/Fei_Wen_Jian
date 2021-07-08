@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { isMobile } from 'react-device-detect'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  Form,
+  Button,
+  FormGroup,
+  Label,
+} from 'reactstrap'
 import 'tui-image-editor/dist/tui-image-editor.css'
 import ImageEditor from '@toast-ui/react-image-editor'
 // import { ToastContainer, toast, Flip, Slide } from 'react-toastify'
@@ -21,7 +29,10 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [signatureSrc, setSignatureSrc] = useState(null)
   const [signatureId, setSignatureId] = useState(0)
   const [markPosition, setMarkPosition] = useState({})
-  // const [preventTostify, setPreventTostify] = useState(false)
+  const [openTextEditModal, setOpenTextEditModal] = useState(false)
+  const [modalTextInput, setModalTextInput] = useState(null)
+  const [anyActivedObj, setAnyActivedObj] = useState(false)
+  const [saveTextId, setSaveTextId] = useState()
   const fileInputRef = useRef()
 
   // get Location API
@@ -141,7 +152,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     editorInstance.changeCursor('crosshair')
   }
 
-  const addDataAndLocation = async () => {
+  const addDataAndLocation = () => {
     setShowOption(false)
     const editorInstance = imageEditor.current.getInstance()
     var canvasSize = editorInstance.getCanvasSize()
@@ -159,12 +170,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
         },
         autofocus: false,
       })
-      .then((result) => {
-        // console.log(result)
+      .then((objectProps) => {
+        setSaveTextId(objectProps.id)
       })
       .catch((err) => {
         alert(err)
       })
+    setModalTextInput(`${userLocation.city}, ${timestamp()}`)
     editorInstance.stopDrawingMode()
     editorInstance.changeCursor('crosshair')
   }
@@ -214,6 +226,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       console.log(event)
       console.log('text editing')
       setShowOption(false)
+      setOpenTextEditModal(true)
     })
   }
 
@@ -223,12 +236,42 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       console.log(showOption)
       console.log(props.type)
       console.log(props.id)
+
       setShowOption(false)
     })
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.changeText(saveTextId, modalTextInput)
+    setOpenTextEditModal(false)
+    console.log(modalTextInput)
+  }
+
   return (
     <>
+      {openTextEditModal ? (
+        <Modal isOpen={openTextEditModal}>
+          <ModalBody>
+            <Form onSubmit={handleSubmit} inline className="row">
+              <FormGroup>
+                <Label>Edit:</Label>
+                <input
+                  type="text"
+                  value={modalTextInput}
+                  onChange={(e) => {
+                    setModalTextInput(e.target.value)
+                  }}
+                />
+                <Button>yes</Button>
+              </FormGroup>
+            </Form>
+          </ModalBody>
+        </Modal>
+      ) : (
+        ''
+      )}
       <input
         hidden
         type="file"
