@@ -15,13 +15,12 @@ const icond = require('tui-image-editor/dist/svg/icon-d.svg')
 function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const imageEditor = React.createRef()
   const [userLocation, setUserLocation] = useState(null)
-  const [showModal, setShowModal] = useState(false)
+  const [showOption, setShowOption] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(true)
   const [position, setPosition] = useState(null)
   const [signatureSrc, setSignatureSrc] = useState(null)
   const [signatureId, setSignatureId] = useState(0)
   const [markPosition, setMarkPosition] = useState({})
-  const [showCloseTextBtn, setShowCloseTextBtn] = useState(false)
   // const [preventTostify, setPreventTostify] = useState(false)
   const fileInputRef = useRef()
 
@@ -124,19 +123,26 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     editorInstance.removeActiveObject()
   }
 
+  const stopDrawing = () => {
+    const editorInstance = imageEditor.current.getInstance()
+    //  取消选择
+    // editorInstance.discardSelection()
+    editorInstance.stopDrawingMode()
+  }
+
   const getPosition = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('mousedown', function (event, originPointer) {
-      setShowModal(true)
+      setShowOption(true)
       setPosition(originPointer)
       setDropdownOpen(true)
     })
+    editorInstance.stopDrawingMode()
     editorInstance.changeCursor('crosshair')
   }
 
   const addDataAndLocation = async () => {
-    setShowCloseTextBtn(true)
-    setShowModal(false)
+    setShowOption(false)
     const editorInstance = imageEditor.current.getInstance()
     var canvasSize = editorInstance.getCanvasSize()
     console.log(canvasSize)
@@ -159,8 +165,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       .catch((err) => {
         alert(err)
       })
-    setShowCloseTextBtn(false)
-    document.querySelector('.tie-btn-text').click()
+    editorInstance.stopDrawingMode()
     editorInstance.changeCursor('crosshair')
   }
 
@@ -187,7 +192,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const addMark = () => {
-    setShowModal(false)
+    setShowOption(false)
     setMarkPosition(position)
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.addShape('triangle', {
@@ -208,20 +213,17 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     editorInstance.on('textEditing', function (event) {
       console.log(event)
       console.log('text editing')
-      setShowModal(false)
+      setShowOption(false)
     })
   }
 
   const onObjectActivated = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('objectActivated', function (props) {
-      console.log(showModal)
+      console.log(showOption)
       console.log(props.type)
       console.log(props.id)
-      setShowModal(false)
-      if (props.type === 'i-text') {
-        setShowCloseTextBtn(true)
-      }
+      setShowOption(false)
     })
   }
 
@@ -259,27 +261,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             >
               cancel
             </span>
-            {/* <span className="btn btn-primary mb-2 mx-1" onClick={testClick}>
+            <span className="btn btn-primary mb-2 mx-1" onClick={stopDrawing}>
               test
-            </span> */}
-            {showCloseTextBtn ? (
-              <button
-                className="btn btn-danger mx-1"
-                onClick={() => {
-                  setShowCloseTextBtn(false)
-                  document.querySelector('.tie-btn-text').click()
-                  setDropdownOpen(false)
-                }}
-              >
-                Finish Text Modify
-              </button>
-            ) : (
-              ''
-            )}
+            </span>
           </div>
           <hr className="m-0" />
           <div className="header-second-part d-flex justify-content-flex-start align-items-center mt-1">
-            {showModal ? (
+            {showOption ? (
               <button
                 className="btn btn-danger"
                 onClick={() => {
@@ -296,7 +284,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             ) : (
               ''
             )}
-            {dropdownOpen && showModal ? (
+            {dropdownOpen && showOption ? (
               <div className="mx-2 d-flex align-items-center justify-content-center">
                 <button
                   type="button"

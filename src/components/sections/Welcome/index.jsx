@@ -3,12 +3,12 @@ import './style.scss'
 
 const home = () => {
   return (
-    <section id="home">
+    <section id="home" className="container">
       <div>
         <div className="home-content p-5">
-          <div className="intro container text-center text-light">
-            <h1 className="title">WELCOME</h1>
-            <h2 className="sub-title mb-4">to use our fly docs services</h2>
+          <div className="intro text-center text-light">
+            <h1 className="mb-3">WELCOME</h1>
+            <h2 className="sub-title mb-4"> use our fly docs services</h2>
             <button className="btn btn-primary border-0 mx-3">
               Learn More
             </button>

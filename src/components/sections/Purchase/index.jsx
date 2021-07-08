@@ -9,12 +9,9 @@ export default memo(function index() {
     { id: 3, duration: 'One Year', price: '$110' },
   ]
   return (
-    <div>
+    <div className="my-5">
       <div className=" purchase text-center">
         <h1 className="text-white">Purchase Whatever You Want</h1>
-        <p className="text-white mb-5">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
         <div className="cards m-3">
           <div className="d-flex flex-row justify-content-center flex-wrap">
             {priceCard.map((item) => {
