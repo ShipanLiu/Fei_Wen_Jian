@@ -30,16 +30,22 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [signatureId, setSignatureId] = useState(0)
   const [markPosition, setMarkPosition] = useState({})
   const [openTextEditModal, setOpenTextEditModal] = useState(false)
-  const [modalTextInput, setModalTextInput] = useState(null)
+  const [modalTextInput, setModalTextInput] = useState()
   const [anyActivedObj, setAnyActivedObj] = useState(false)
-  const [saveTextId, setSaveTextId] = useState()
+  const [addedText, setAddedText] = useState([])
+  const [choosedTextId, setChoosedTextId] = useState(null)
   const fileInputRef = useRef()
 
   // get Location API
+  // useEffect(() => {
+  //   onTextEditing()
+  //   onObjectActivated()
+  // }, [])
+
   useEffect(() => {
     onTextEditing()
     onObjectActivated()
-  }, [])
+  }, [choosedTextId, addedText])
 
   useEffect(() => {
     fetch(
@@ -132,6 +138,11 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const handleDelete = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.removeActiveObject()
+    // if (anyActivedObj) {
+    //   editorInstance.removeActiveObject()
+    // } else {
+    //   alert('choose one to delete')
+    // }
   }
 
   const stopDrawing = () => {
@@ -139,6 +150,11 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     //  取消选择
     // editorInstance.discardSelection()
     editorInstance.stopDrawingMode()
+  }
+
+  const test = () => {
+    console.log(addedText)
+    console.log(choosedTextId)
   }
 
   const getPosition = () => {
@@ -149,6 +165,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       setDropdownOpen(true)
     })
     editorInstance.stopDrawingMode()
+    setAnyActivedObj(false)
     editorInstance.changeCursor('crosshair')
   }
 
@@ -171,7 +188,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
         autofocus: false,
       })
       .then((objectProps) => {
-        setSaveTextId(objectProps.id)
+        setAddedText((preText) => [
+          ...preText,
+          {
+            id: objectProps.id,
+            text: `${userLocation.city}, ${timestamp()}`,
+          },
+        ])
       })
       .catch((err) => {
         alert(err)
@@ -222,8 +245,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   const onTextEditing = () => {
     const editorInstance = imageEditor.current.getInstance()
-    editorInstance.on('textEditing', function (event) {
-      console.log(event)
+    editorInstance.on('textEditing', function () {
       console.log('text editing')
       setShowOption(false)
       setOpenTextEditModal(true)
@@ -233,10 +255,18 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const onObjectActivated = () => {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('objectActivated', function (props) {
-      console.log(showOption)
       console.log(props.type)
-      console.log(props.id)
-
+      setChoosedTextId(props.id)
+      // console.log(choosedTextId)
+      // console.log(addedText)
+      if (props.type === 'i-text') {
+        const choosedText = addedText.filter(
+          (textObj) => textObj.id === choosedTextId
+        )
+        console.log(choosedText[0]?.text)
+        setModalTextInput(choosedText[0]?.text)
+      }
+      setAnyActivedObj(true)
       setShowOption(false)
     })
   }
@@ -244,7 +274,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const editorInstance = imageEditor.current.getInstance()
-    editorInstance.changeText(saveTextId, modalTextInput)
+    editorInstance.changeText(choosedTextId, modalTextInput)
     setOpenTextEditModal(false)
     console.log(modalTextInput)
   }
@@ -304,7 +334,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             >
               cancel
             </span>
-            <span className="btn btn-primary mb-2 mx-1" onClick={stopDrawing}>
+            <span className="btn btn-primary mb-2 mx-1" onClick={test}>
               test
             </span>
           </div>
