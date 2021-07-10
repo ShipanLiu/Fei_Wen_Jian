@@ -30,10 +30,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [signatureId, setSignatureId] = useState(0)
   const [markPosition, setMarkPosition] = useState({})
   const [openTextEditModal, setOpenTextEditModal] = useState(false)
+  const [openTextResizeModal, setOpenTextResizeModal] = useState(false)
   const [modalTextInput, setModalTextInput] = useState()
   const [anyActivedObj, setAnyActivedObj] = useState(false)
   const [addedText, setAddedText] = useState([])
   const [choosedTextId, setChoosedTextId] = useState(null)
+  const [textResizeValue, setTextResizeValue] = useState(80)
+
   const fileInputRef = useRef()
 
   // get Location API
@@ -96,6 +99,10 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     setSignatureId(null)
   }, [signatureId])
 
+  useEffect(() => {
+    handleTextResizeChange()
+  }, [textResizeValue])
+
   const myTheme = {
     'menu.backgroundColor': 'white',
     'common.backgroundColor': '#151515',
@@ -157,18 +164,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     console.log(choosedTextId)
   }
 
-  const getPosition = () => {
-    const editorInstance = imageEditor.current.getInstance()
-    editorInstance.on('mousedown', function (event, originPointer) {
-      setShowOption(true)
-      setPosition(originPointer)
-      setDropdownOpen(true)
-    })
-    editorInstance.stopDrawingMode()
-    setAnyActivedObj(false)
-    editorInstance.changeCursor('crosshair')
-  }
-
   const addDataAndLocation = () => {
     setShowOption(false)
     const editorInstance = imageEditor.current.getInstance()
@@ -178,7 +173,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       .addText(`${userLocation.city}, ${timestamp()}`, {
         styles: {
           fill: '#000',
-          fontSize: 80,
+          fontSize: textResizeValue,
           fontWeight: 'bold',
         },
         position: {
@@ -224,6 +219,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const addSignature = () => {
     // document.querySelector('.tie-mask-image-file').click()
     fileInputRef.current.click()
+    setOpenTextResizeModal(false)
   }
 
   const addMark = () => {
@@ -240,6 +236,20 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       top: position.y,
       isRegular: true,
     })
+    editorInstance.changeCursor('crosshair')
+    setOpenTextResizeModal(false)
+  }
+
+  const getPosition = () => {
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.on('mousedown', function (event, originPointer) {
+      setShowOption(true)
+      setPosition(originPointer)
+      setDropdownOpen(true)
+    })
+    editorInstance.stopDrawingMode()
+    // setOpenTextResizeModal(false)
+    setAnyActivedObj(false)
     editorInstance.changeCursor('crosshair')
   }
 
@@ -265,6 +275,10 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
         )
         console.log(choosedText[0]?.text)
         setModalTextInput(choosedText[0]?.text)
+        console.log(openTextResizeModal)
+        setOpenTextResizeModal(true)
+      } else {
+        setOpenTextResizeModal(false)
       }
       setAnyActivedObj(true)
       setShowOption(false)
@@ -279,29 +293,34 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     console.log(modalTextInput)
   }
 
+  const handleTextResizeChange = () => {
+    const editorInstance = imageEditor.current.getInstance()
+    console.log(choosedTextId)
+    editorInstance.changeTextStyle(choosedTextId, {
+      fontSize: textResizeValue,
+    })
+    console.log(textResizeValue)
+  }
+
   return (
     <>
-      {openTextEditModal ? (
-        <Modal isOpen={openTextEditModal}>
-          <ModalBody>
-            <Form onSubmit={handleSubmit} inline className="row">
-              <FormGroup>
-                <Label>Edit:</Label>
-                <input
-                  type="text"
-                  value={modalTextInput}
-                  onChange={(e) => {
-                    setModalTextInput(e.target.value)
-                  }}
-                />
-                <Button>yes</Button>
-              </FormGroup>
-            </Form>
-          </ModalBody>
-        </Modal>
-      ) : (
-        ''
-      )}
+      <Modal isOpen={openTextEditModal}>
+        <ModalBody>
+          <Form onSubmit={handleSubmit} inline className="row">
+            <FormGroup>
+              <Label>Edit:</Label>
+              <input
+                type="text"
+                value={modalTextInput}
+                onChange={(e) => {
+                  setModalTextInput(e.target.value)
+                }}
+              />
+              <Button>yes</Button>
+            </FormGroup>
+          </Form>
+        </ModalBody>
+      </Modal>
       <input
         hidden
         type="file"
@@ -385,6 +404,23 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
               ''
             )}
           </div>
+        </div>
+        <div className="text-resize-rapper">
+          {openTextResizeModal ? (
+            <input
+              type="range"
+              class="form-range"
+              id="customRange1"
+              min="30"
+              max="150"
+              value={textResizeValue}
+              onChange={(e) => {
+                setTextResizeValue(e.target.value)
+              }}
+            ></input>
+          ) : (
+            ''
+          )}
         </div>
         <ImageEditor
           includeUI={{
