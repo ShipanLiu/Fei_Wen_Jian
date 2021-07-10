@@ -36,6 +36,10 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [addedText, setAddedText] = useState([])
   const [choosedTextId, setChoosedTextId] = useState(null)
   const [textResizeValue, setTextResizeValue] = useState(80)
+  const [addedShape, setAddedShape] = useState([])
+  const [choosedShapeId, setChoosedShapeId] = useState(null)
+  const [shapeResizeValue, setShapeResizeValue] = useState(80)
+  const [currentChoosedType, setCurrentChoosedType] = useState('')
 
   const fileInputRef = useRef()
 
@@ -48,7 +52,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   useEffect(() => {
     onTextEditing()
     onObjectActivated()
-  }, [choosedTextId, addedText])
+  }, [choosedTextId, addedText, choosedShapeId, addedShape])
 
   useEffect(() => {
     fetch(
@@ -102,6 +106,10 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   useEffect(() => {
     handleTextResizeChange()
   }, [textResizeValue])
+
+  useEffect(() => {
+    handleShapeResizeChange()
+  }, [shapeResizeValue])
 
   const myTheme = {
     'menu.backgroundColor': 'white',
@@ -226,18 +234,22 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     setShowOption(false)
     setMarkPosition(position)
     const editorInstance = imageEditor.current.getInstance()
-    editorInstance.addShape('triangle', {
-      fill: '#0D6EFD',
-      stroke: 'blue',
-      strokeWidth: 10,
-      width: 100,
-      height: 100,
-      left: position.x,
-      top: position.y,
-      isRegular: true,
-    })
+    editorInstance
+      .addShape('circle', {
+        fill: 'transparent',
+        stroke: 'blue',
+        strokeWidth: 20,
+        rx: 40,
+        ry: 50,
+        left: position.x,
+        top: position.y,
+        isRegular: true,
+      })
+      .then((objectProps) => {
+        setAddedShape((preShapes) => [...preShapes, objectProps.id])
+      })
     editorInstance.changeCursor('crosshair')
-    setOpenTextResizeModal(false)
+    setOpenTextResizeModal(true)
   }
 
   const getPosition = () => {
@@ -266,19 +278,31 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.on('objectActivated', function (props) {
       console.log(props.type)
-      setChoosedTextId(props.id)
-      // console.log(choosedTextId)
-      // console.log(addedText)
-      if (props.type === 'i-text') {
-        const choosedText = addedText.filter(
-          (textObj) => textObj.id === choosedTextId
-        )
-        console.log(choosedText[0]?.text)
-        setModalTextInput(choosedText[0]?.text)
-        console.log(openTextResizeModal)
-        setOpenTextResizeModal(true)
-      } else {
-        setOpenTextResizeModal(false)
+      switch (props.type) {
+        case 'i-text':
+          setCurrentChoosedType('text')
+          setChoosedTextId(props.id)
+          const choosedText = addedText.filter(
+            (textObj) => textObj.id === choosedTextId
+          )
+          console.log(choosedText[0]?.text)
+          setModalTextInput(choosedText[0]?.text)
+          console.log(openTextResizeModal)
+          setOpenTextResizeModal(true)
+          break
+        case 'circle':
+          setCurrentChoosedType('shape')
+          setChoosedShapeId(props.id)
+          console.log(choosedShapeId)
+          setOpenTextResizeModal(true)
+          break
+        case 'image':
+          setCurrentChoosedType('image')
+          console.log('image choosed')
+          break
+        default:
+          setOpenTextResizeModal(false)
+          break
       }
       setAnyActivedObj(true)
       setShowOption(false)
@@ -295,11 +319,19 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   const handleTextResizeChange = () => {
     const editorInstance = imageEditor.current.getInstance()
-    console.log(choosedTextId)
     editorInstance.changeTextStyle(choosedTextId, {
       fontSize: textResizeValue,
     })
     console.log(textResizeValue)
+  }
+
+  const handleShapeResizeChange = () => {
+    const editorInstance = imageEditor.current.getInstance()
+    editorInstance.changeTextStyle(choosedShapeId, {
+      ry: shapeResizeValue,
+      rx: shapeResizeValue / 1.5,
+    })
+    console.log(shapeResizeValue)
   }
 
   return (
@@ -406,12 +438,29 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
           </div>
         </div>
         <div className="text-resize-rapper">
-          {openTextResizeModal ? (
+          {/* resize shape */}
+          {openTextResizeModal && currentChoosedType === 'shape' ? (
             <input
               type="range"
               class="form-range"
               id="customRange1"
-              min="30"
+              min="0"
+              max="150"
+              value={shapeResizeValue}
+              onChange={(e) => {
+                setShapeResizeValue(e.target.value)
+              }}
+            ></input>
+          ) : (
+            ''
+          )}
+          {/* resize text(data + location) */}
+          {openTextResizeModal && currentChoosedType === 'text' ? (
+            <input
+              type="range"
+              class="form-range"
+              id="customRange1"
+              min="0"
               max="150"
               value={textResizeValue}
               onChange={(e) => {
