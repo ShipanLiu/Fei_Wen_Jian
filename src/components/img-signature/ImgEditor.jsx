@@ -33,13 +33,16 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   const [openTextResizeModal, setOpenTextResizeModal] = useState(false)
   const [modalTextInput, setModalTextInput] = useState()
   const [anyActivedObj, setAnyActivedObj] = useState(false)
+  const [currentChoosedType, setCurrentChoosedType] = useState('')
   const [addedText, setAddedText] = useState([])
   const [choosedTextId, setChoosedTextId] = useState(null)
   const [textResizeValue, setTextResizeValue] = useState(80)
   const [addedShape, setAddedShape] = useState([])
   const [choosedShapeId, setChoosedShapeId] = useState(null)
   const [shapeResizeValue, setShapeResizeValue] = useState(80)
-  const [currentChoosedType, setCurrentChoosedType] = useState('')
+  const [choosedImgId, setChoosedImgId] = useState(null)
+  const [imgResizeValue, setImgResizeValue] = useState(null)
+  const [imgOrginalHeight, setImgOrginalHeight] = useState(20)
 
   const fileInputRef = useRef()
 
@@ -85,7 +88,8 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     console.log('enter Effect' + position)
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.addImageObject(signatureSrc).then((objectProps) => {
-      console.log(objectProps.id)
+      console.log(objectProps)
+      // setImgOrginalHeight(objectProps.height)
       setSignatureId(objectProps.id)
     })
     setSignatureSrc(null)
@@ -110,6 +114,10 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   useEffect(() => {
     handleShapeResizeChange()
   }, [shapeResizeValue])
+
+  // useEffect(() => {
+  //   handleImageResizeChange()
+  // }, [imgResizeValue])
 
   const myTheme = {
     'menu.backgroundColor': 'white',
@@ -225,7 +233,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
   }
 
   const addSignature = () => {
-    // document.querySelector('.tie-mask-image-file').click()
     fileInputRef.current.click()
     setOpenTextResizeModal(false)
   }
@@ -260,7 +267,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
       setDropdownOpen(true)
     })
     editorInstance.stopDrawingMode()
-    // setOpenTextResizeModal(false)
     setAnyActivedObj(false)
     editorInstance.changeCursor('crosshair')
   }
@@ -298,7 +304,9 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
           break
         case 'image':
           setCurrentChoosedType('image')
-          console.log('image choosed')
+          // setChoosedImgId(props.id)
+          console.log('image choosed' + props.id)
+          setOpenTextResizeModal(false)
           break
         default:
           setOpenTextResizeModal(false)
@@ -313,6 +321,13 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
     e.preventDefault()
     const editorInstance = imageEditor.current.getInstance()
     editorInstance.changeText(choosedTextId, modalTextInput)
+    //  refresh the addedText
+    addedText.map((textObj) => {
+      if (textObj.id === choosedTextId) {
+        textObj.text = modalTextInput
+        return textObj
+      }
+    })
     setOpenTextEditModal(false)
     console.log(modalTextInput)
   }
@@ -327,15 +342,24 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
 
   const handleShapeResizeChange = () => {
     const editorInstance = imageEditor.current.getInstance()
-    editorInstance.changeTextStyle(choosedShapeId, {
+    editorInstance.changeShape(choosedShapeId, {
       ry: shapeResizeValue,
       rx: shapeResizeValue / 1.5,
     })
     console.log(shapeResizeValue)
   }
 
+  // const handleImageResizeChange = () => {
+  //   const editorInstance = imageEditor.current.getInstance()
+  //   editorInstance.changeTextStyle(choosedImgId, {
+  //     height: imgResizeValue,
+  //   })
+  //   console.log(imgResizeValue)
+  // }
+
   return (
     <>
+      {/* text edit modal */}
       <Modal isOpen={openTextEditModal}>
         <ModalBody>
           <Form onSubmit={handleSubmit} inline className="row">
@@ -353,6 +377,7 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
           </Form>
         </ModalBody>
       </Modal>
+      {/* add signature image */}
       <input
         hidden
         type="file"
@@ -443,9 +468,9 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             <input
               type="range"
               class="form-range"
-              id="customRange1"
-              min="0"
-              max="150"
+              id="shape-resize"
+              min="5"
+              max="200"
               value={shapeResizeValue}
               onChange={(e) => {
                 setShapeResizeValue(e.target.value)
@@ -459,9 +484,9 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             <input
               type="range"
               class="form-range"
-              id="customRange1"
-              min="0"
-              max="150"
+              id="text-resize"
+              min="30"
+              max="200"
               value={textResizeValue}
               onChange={(e) => {
                 setTextResizeValue(e.target.value)
@@ -470,6 +495,23 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
           ) : (
             ''
           )}
+
+          {/* resize the image object */}
+          {/* {openTextResizeModal && currentChoosedType === 'image' ? (
+            <input
+              type="range"
+              class="form-range"
+              id="image-resize"
+              min={`${imgOrginalHeight}`}
+              max={`${imgOrginalHeight + 20}`}
+              value={imgResizeValue}
+              onChange={(e) => {
+                setImgResizeValue(e.target.value)
+              }}
+            ></input>
+          ) : (
+            ''
+          )} */}
         </div>
         <ImageEditor
           includeUI={{
@@ -483,8 +525,6 @@ function ImgEditor({ setFinalImg, setShowImgSigModal, choosedSrc }) {
             uiSize: {
               width: `${window.innerWidth}`,
               height: `${window.innerHeight}`,
-              // width: '300px',
-              // height: '300px',
             },
             menuBarPosition: 'top',
           }}
