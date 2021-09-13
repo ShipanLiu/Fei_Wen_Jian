@@ -1,0 +1,222 @@
+.img-mainArea {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background: transparent;
+  .img-wrapper {
+    // position: relative;
+    // width: 90%;
+    height: 100%;
+    overflow: hidden;
+    color: #000;
+    // background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 16px rgba(19, 18, 18, 0.2);
+    .img-title {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+      .cancle-btn {
+        position: absolute;
+        right: 0;
+      }
+    }
+    #img-region-body {
+      width: 100%;
+      .home-page {
+        position: relative;
+        // background-color: pink;
+        .control-header {
+          background-color: goldenrod;
+          height: 100px;
+        }
+        .text-resize-rapper {
+          position: absolute;
+          top: 100px;
+          left: 0;
+          width: 100%;
+          z-index: 999;
+          margin: 0;
+          padding: 0;
+          .form-range {
+            background-color: green;
+          }
+        }
+       .tui-image-editor-container{
+         border: 1px solid #000;
+         height: 80vh !important;
+          .tui-image-editor-controls {
+          .tui-image-editor-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+       }
+
+        }
+      }
+    }
+  }
+}
+
+[id^='sb__open-sandbox'] {
+  display: none;
+}
+
+.tui-image-editor-header {
+  display: none;
+}
+
+.tui-image-editor-item.tie-btn-delete,
+.tui-image-editor-item.tie-btn-deleteAll {
+  display: none !important;
+}
+
+
+// here is for the size of whole canvas
+.tui-image-editor {
+  top: 30px !important;
+  border: 3px solid yellowgreen;
+  // padding: 20px !important;
+  height: 450px !important;
+  width: 300px !important;
+}
+
+.tui-image-editor-canvas-container {
+  max-width: 800px !important;
+  max-height: 1000px !important;
+}
+
+
+.tui-image-editor-header {
+  display: none;
+}
+
+.tui-image-editor-controls-buttons {
+  display: none !important;
+}
+
+.tui-image-editor-main {
+  top: 2px !important;
+  width: 100% !important;
+}
+
+.tui-image-editor-align-wrap {
+  display: inline-block !important;
+}
+
+
+
+.lower-canvas,
+.upper-canvas  {
+  max-width: 700px !important;
+  max-height: 1000px !important;
+  // width: 100% !important;
+  // // height: 60vh !important;
+
+  // max-width: 100% !important;
+  // // max-height: 100% !important;
+}
+
+.tui-colorpicker-palette-hex {
+  display: none !important;
+}
+.tui-colorpicker-palette-preview {
+  padding: 10px;
+}
+
+.tui-image-editor-controls-logo {
+  display: none !important;
+}
+
+.tui-image-editor-container,
+.top,
+.tui-image-editor-submenu > div {
+  padding-top: 0 !important;
+}
+
+.svg_ic-submenu {
+  display: none !important;
+}
+
+
+// .tui-image-editor-menu-mask {
+//   .apply {
+//     display: none !important;
+//   }
+// }
+
+.tui-image-editor-menu-text {
+
+  .tui-image-editor-submenu-item {
+    height: 20px !important;
+    .tie-text-effect-button,
+    .tui-image-editor-partition,
+    .tie-text-align-button,
+    .tie-text-color,
+    .tui-image-editor-button {
+      display: none !important;
+    }
+    .tui-image-editor-newline,
+    .tui-image-editor-range-wrap {
+      margin-top: -55px !important;
+    }
+  }
+}
+
+// text-editor-icon
+// .tie-btn-text{
+//   display: none !important;
+// }
+
+.tie-crop-preset-button {
+  display: none !important
+}
+
+
+.tie-shape-button,
+.tui-image-editor-partition,
+.tie-shape-color-button,
+.tui-image-editor-range-wrap,
+.tui-image-editor-submenu-style{
+  display: none !important;
+}
+
+.tui-image-editor-controls {
+  display: none !important;
+}
+
+.tui-image-editor-help-menu {
+  display: none !important;
+}
+
+.tui-image-editor-wrap {
+  height: 480px !important;
+}
+
+.tui-image-editor-main-container {
+  height: 500px !important;
+}
+
+// .toggle-controll-bar {
+//   .dropdown-toggle {
+
+//   }
+//   .dropdown-menu {
+//     top: -38px !important;
+//     left: 91px !important;
+//   }
+// }
+
+.tui-image-editor-submenu {
+  display: none !important;
+}

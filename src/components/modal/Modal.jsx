@@ -1,3 +1,7 @@
+/*
+  cleck one image and the modal pumps out, which shows the details.
+
+*/
 import React, { memo, useEffect, useCallback } from 'react'
 import './style.scss'
 
